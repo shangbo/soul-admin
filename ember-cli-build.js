@@ -236,7 +236,7 @@ module.exports = function (defaults) {
     app.import('node_modules/keymaster/keymaster.js');
     app.import('node_modules/@tryghost/mobiledoc-kit/dist/amd/mobiledoc-kit.js');
     app.import('node_modules/@tryghost/mobiledoc-kit/dist/amd/mobiledoc-kit.map');
-    app.import('node_modules/soul-editor-kit/dist/amd/soul-editor-kit.js');
+    app.import('node_modules/@loftysoul/soul-editor-kit/dist/amd/soul-editor-kit.js');
     app.import('node_modules/reframe.js/dist/noframe.js');
 
     app.import('node_modules/highlight.js/lib/index.js', {

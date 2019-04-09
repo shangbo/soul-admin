@@ -744,6 +744,14 @@
     ember-compatibility-helpers "^1.0.0"
     ember-raf-scheduler "0.1.0"
 
+"@loftysoul/soul-editor-kit@0.11.9":
+  version "0.11.9"
+  resolved "http://r.cnpmjs.org/@loftysoul/soul-editor-kit/download/@loftysoul/soul-editor-kit-0.11.9.tgz#e0bc46abd111deec89f524696b4dea210dc8a980"
+  integrity sha1-4LxGq9ER3uyJ9SRpa03qIQ3IqYA=
+  dependencies:
+    mobiledoc-dom-renderer "0.6.5"
+    mobiledoc-text-renderer "0.3.2"
+
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
@@ -11169,14 +11177,6 @@ sort-package-json@^1.15.0:
   dependencies:
     detect-indent "^5.0.0"
     sort-object-keys "^1.1.2"
-
-soul-editor-kit@0.11.8-soul:
-  version "0.11.8-soul"
-  resolved "https://registry.yarnpkg.com/soul-editor-kit/-/soul-editor-kit-0.11.8-soul.tgz#e4cbf5789c81074d5c03e8d16c2eb6b57cbbf337"
-  integrity sha512-VOcgbchaePb5okjQWRpWlj3lF7li2DJkKSqq6LrH3j+qvMnDY/PsGOil7WRTYn7k9jFh3ytRli3Y3evI/I3YKg==
-  dependencies:
-    mobiledoc-dom-renderer "0.6.5"
-    mobiledoc-text-renderer "0.3.2"
 
 source-list-map@^2.0.0:
   version "2.0.1"

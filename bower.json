@@ -1,6 +1,0 @@
-{
-  "name": "ghost-admin",
-  "dependencies": {
-    "highlightjs": "^9.12.0"
-  }
-}
