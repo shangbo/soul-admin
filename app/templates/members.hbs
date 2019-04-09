@@ -1,0 +1,64 @@
+<section class="gh-canvas">
+    <header class="gh-canvas-header">
+        <h2 class="gh-canvas-title" data-test-screen-title>Members</h2>
+    </header>
+
+    <section class="view-container h-100">
+
+        <div>
+            <GhTextInput placeholder="Search members..." @value={{this.searchText}}
+                @input={{action (mut this.searchText) value="target.value"}} />
+        </div>
+
+        <div class="flex justify-between items-center pt1 mt7">
+            <h2 class="f7 fw4 midgrey">
+                {{#if this.searchText}}
+                    Search result
+                {{else}}
+                    All members
+                    {{#if this.fetchMembers.lastSuccessful}}
+                        ({{this.meta.pagination.total}})
+                    {{else}}
+                        (Loading...)
+                    {{/if}}
+                {{/if}}
+            </h2>
+        </div>
+
+        {{#if this.filteredMembers}}
+            {{!-- members list, styles taken from .apps-grid --}}
+            <div class="flex flex-row flex-wrap items-start ba br3 b--whitegrey mt2 mb10">
+                <VerticalCollection
+                    @items={{this.filteredMembers}}
+                    @key="id"
+                    @containerSelector=".gh-main"
+                    @estimateHeight=76
+                    as |member index|
+                >
+                    <div class="flex-grow-1 flex-shrink-1" style="flex-basis: 100%">
+                        {{#link-to "member" member classNames="link whitegrey"}}
+                            <article class="flex items-center justify-between pa4 {{if index "bt"}}">
+                                <div class="flex items-center">
+                                    <GhMemberAvatar @member={{member}} class="w10 h10 mr4" />
+                                    <div class="flex flex-column">
+                                        <h3 class="darkgrey ma0 f5 fw7">{{member.name}}</h3>
+                                        <p class="midgrey ma0 pa0 f7">{{member.email}}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">{{svg-jar "arrow-right" class="w4 h4 fill-midlightgrey"}}</div>
+                            </article>
+                        {{/link-to}}
+                    </div>
+                </VerticalCollection>
+            </div>
+        {{else}}
+            {{#if this.fetchMembers.isRunning}}
+                <div class="gh-content">
+                    <GhLoadingSpinner />
+                </div>
+            {{else}}
+                <p class="mt2 pt10 bt b--whitegrey tc midlightgrey">No members found.</p>
+            {{/if}}
+        {{/if}}
+    </section>
+</section>
