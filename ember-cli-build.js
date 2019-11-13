@@ -25,6 +25,7 @@ const assetLocation = function (fileName) {
 
 const codemirrorAssets = function () {
     let codemirrorFiles = [
+        // 'theme/**/*',
         'lib/codemirror.js',
         'mode/htmlmixed/htmlmixed.js',
         'mode/xml/xml.js',
@@ -53,7 +54,14 @@ const codemirrorAssets = function () {
                 jsTree = uglify(jsTree);
             }
 
-            let mergedTree = mergeTrees([tree, jsTree]);
+            // let cssTree = concat(tree, {
+            //     outputFile: 'assets/codemirror/codemirror-style.css',
+            //     inputFiles: ['theme/**/*'],
+            //     sourceMapConfig: {enabled: false}
+            // });
+
+            // let mergedTree = mergeTrees([tree, jsTree, cssTree]);
+            let mergedTree = mergeTrees([tree, jsTree])
             return new Funnel(mergedTree, {include: ['assets/**/*', 'theme/**/*']});
         }
     };
@@ -231,7 +239,16 @@ module.exports = function (defaults) {
     app.import('node_modules/keymaster/keymaster.js');
     app.import('node_modules/@tryghost/mobiledoc-kit/dist/amd/mobiledoc-kit.js');
     app.import('node_modules/@tryghost/mobiledoc-kit/dist/amd/mobiledoc-kit.map');
+    app.import('node_modules/@loftysoul/soul-editor-kit/dist/amd/soul-editor-kit.js');
     app.import('node_modules/reframe.js/dist/noframe.js');
+
+    // app.import('node_modules/highlight.js/lib/index.js', {
+    //     using: [
+    //         {transformation: 'cjs', as: 'highlight.js'}
+    //     ]
+    // });
+
+    // app.import('node_modules/highlight.js/styles/monokai.css');
 
     // pull things we rely on via lazy-loading into the test-support.js file so
     // that tests don't break when running via http://localhost:4200/tests
