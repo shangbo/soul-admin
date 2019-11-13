@@ -7,15 +7,21 @@ env:
   global:
   - MOZ_HEADLESS=1
   - JOBS=1
+<<<<<<< HEAD
 branches:
   except:
   - "/^renovate\\/.+$/"
+=======
+# Don't run builds for renovate PRs
+if: NOT head_branch =~ ^renovate
+>>>>>>> ded09fd15179dceab8ad76d0279b74c5832cdd5e
 addons:
   firefox: latest
   chrome: stable
 install:
 - yarn
 script:
+<<<<<<< HEAD
 - npm run lint:js && COVERAGE=true npm run test
 after_success:
 - npm run coverage
@@ -26,3 +32,10 @@ notifications:
     on_success: change
     on_failure: always
     on_pull_requests: false
+=======
+- yarn run lint:js && yarn run test
+after_failure: |
+  if [ "${TRAVIS_EVENT_TYPE}" == "cron" ]; then
+    curl -X POST --data-urlencode "payload={\"attachments\": [{\"color\": \"danger\", \"fallback\": \"Build Failure: $TRAVIS_JOB_WEB_URL\", \"title\": \"Build Failure\", \"text\": \"$TRAVIS_JOB_WEB_URL\"}]}" $SLACK_URL
+  fi
+>>>>>>> ded09fd15179dceab8ad76d0279b74c5832cdd5e
