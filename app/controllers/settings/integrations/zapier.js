@@ -1,7 +1,7 @@
 /* eslint-disable ghost/ember/alias-model-in-controller */
 import Controller from '@ember/controller';
-import config from 'ghost-admin/config/environment';
-import copyTextToClipboard from 'ghost-admin/utils/copy-text-to-clipboard';
+import config from 'soul-admin/config/environment';
+import copyTextToClipboard from 'soul-admin/utils/copy-text-to-clipboard';
 import {alias} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import {inject as service} from '@ember/service';

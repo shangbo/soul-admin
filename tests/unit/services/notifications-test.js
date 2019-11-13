@@ -1,7 +1,7 @@
 import EmberObject from '@ember/object';
 import sinon from 'sinon';
 import {AjaxError, InvalidError} from 'ember-ajax/errors';
-import {ServerUnreachableError} from 'ghost-admin/services/ajax';
+import {ServerUnreachableError} from 'soul-admin/services/ajax';
 import {describe, it} from 'mocha';
 import {A as emberA} from '@ember/array';
 import {expect} from 'chai';

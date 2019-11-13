@@ -1,6 +1,6 @@
-import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
+import AuthenticatedRoute from 'soul-admin/routes/authenticated';
 import CurrentUserSettings from '../../../mixins/current-user-settings';
-import UnsplashObject from 'ghost-admin/models/unsplash-integration';
+import UnsplashObject from 'soul-admin/models/unsplash-integration';
 import {inject as service} from '@ember/service';
 
 export default AuthenticatedRoute.extend(CurrentUserSettings, {

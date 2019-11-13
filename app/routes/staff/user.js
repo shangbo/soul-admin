@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
-import CurrentUserSettings from 'ghost-admin/mixins/current-user-settings';
+import AuthenticatedRoute from 'soul-admin/routes/authenticated';
+import CurrentUserSettings from 'soul-admin/mixins/current-user-settings';
 
 export default AuthenticatedRoute.extend(CurrentUserSettings, {
     model(params) {

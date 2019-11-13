@@ -1,4 +1,4 @@
-import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
+import AuthenticatedRoute from 'soul-admin/routes/authenticated';
 import {pluralize} from 'ember-inflector';
 
 export default AuthenticatedRoute.extend({

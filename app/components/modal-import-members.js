@@ -1,5 +1,5 @@
-import ModalComponent from 'ghost-admin/components/modal-base';
-import ghostPaths from 'ghost-admin/utils/ghost-paths';
+import ModalComponent from 'soul-admin/components/modal-base';
+import ghostPaths from 'soul-admin/utils/ghost-paths';
 import {computed} from '@ember/object';
 
 export default ModalComponent.extend({

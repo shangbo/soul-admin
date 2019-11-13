@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import {
     IMAGE_EXTENSIONS,
     IMAGE_MIME_TYPES
-} from 'ghost-admin/components/gh-image-uploader';
+} from 'soul-admin/components/gh-image-uploader';
 import {debounce, run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 

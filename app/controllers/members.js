@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import ghostPaths from 'ghost-admin/utils/ghost-paths';
+import ghostPaths from 'soul-admin/utils/ghost-paths';
 import moment from 'moment';
 import {computed} from '@ember/object';
 import {inject as service} from '@ember/service';

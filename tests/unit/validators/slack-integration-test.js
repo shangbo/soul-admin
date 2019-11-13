@@ -1,5 +1,5 @@
-import SlackObject from 'ghost-admin/models/slack-integration';
-import validator from 'ghost-admin/validators/slack-integration';
+import SlackObject from 'soul-admin/models/slack-integration';
+import validator from 'soul-admin/validators/slack-integration';
 import {
     describe,
     it

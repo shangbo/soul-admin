@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import Transform from 'ember-data/transform';
-import UnsplashObject from 'ghost-admin/models/unsplash-integration';
+import UnsplashObject from 'soul-admin/models/unsplash-integration';
 
 const DEFAULT_SETTINGS = {
     isActive: true

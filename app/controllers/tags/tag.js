@@ -1,5 +1,5 @@
 import Controller, {inject as controller} from '@ember/controller';
-import windowProxy from 'ghost-admin/utils/window-proxy';
+import windowProxy from 'soul-admin/utils/window-proxy';
 import {alias} from '@ember/object/computed';
 import {inject as service} from '@ember/service';
 import {slugify} from '@tryghost/string';

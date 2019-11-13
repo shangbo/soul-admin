@@ -1,11 +1,11 @@
 /* eslint-disable ghost/ember/alias-model-in-controller */
 import $ from 'jquery';
 import Controller from '@ember/controller';
-import NavigationItem from 'ghost-admin/models/navigation-item';
+import NavigationItem from 'soul-admin/models/navigation-item';
 import RSVP from 'rsvp';
 import {computed} from '@ember/object';
 import {isEmpty} from '@ember/utils';
-import {isThemeValidationError} from 'ghost-admin/services/ajax';
+import {isThemeValidationError} from 'soul-admin/services/ajax';
 import {notEmpty} from '@ember/object/computed';
 import {inject as service} from '@ember/service';
 import {task} from 'ember-concurrency';

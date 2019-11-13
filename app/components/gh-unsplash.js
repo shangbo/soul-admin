@@ -1,6 +1,6 @@
 /* global key */
 import Component from '@ember/component';
-import ShortcutsMixin from 'ghost-admin/mixins/shortcuts';
+import ShortcutsMixin from 'soul-admin/mixins/shortcuts';
 import {bind} from '@ember/runloop';
 import {or} from '@ember/object/computed';
 import {inject as service} from '@ember/service';

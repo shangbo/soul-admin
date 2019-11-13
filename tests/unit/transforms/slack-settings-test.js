@@ -1,4 +1,4 @@
-import SlackIntegration from 'ghost-admin/models/slack-integration';
+import SlackIntegration from 'soul-admin/models/slack-integration';
 import {describe, it} from 'mocha';
 import {A as emberA} from '@ember/array';
 import {expect} from 'chai';

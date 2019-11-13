@@ -1,12 +1,12 @@
 /* eslint-disable ghost/ember/alias-model-in-controller */
 import $ from 'jquery';
 import Controller from '@ember/controller';
-import generatePassword from 'ghost-admin/utils/password-generator';
+import generatePassword from 'soul-admin/utils/password-generator';
 import validator from 'validator';
 import {
     IMAGE_EXTENSIONS,
     IMAGE_MIME_TYPES
-} from 'ghost-admin/components/gh-image-uploader';
+} from 'soul-admin/components/gh-image-uploader';
 import {computed} from '@ember/object';
 import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';

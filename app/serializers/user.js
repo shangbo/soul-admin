@@ -1,4 +1,4 @@
-import ApplicationSerializer from 'ghost-admin/serializers/application';
+import ApplicationSerializer from 'soul-admin/serializers/application';
 import EmbeddedRecordsMixin from 'ember-data/serializers/embedded-records-mixin';
 import {pluralize} from 'ember-inflector';
 

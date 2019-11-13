@@ -3,7 +3,7 @@
 
 module.exports = function (environment) {
     let ENV = {
-        modulePrefix: 'ghost-admin',
+        modulePrefix: 'soul-admin',
         environment,
         rootURL: '/',
         locationType: 'trailing-hash',

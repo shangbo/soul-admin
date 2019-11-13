@@ -2,8 +2,8 @@ import DS from 'ember-data';
 import EmberObject from '@ember/object';
 import RSVP from 'rsvp';
 import Route from '@ember/routing/route';
-import UnauthenticatedRouteMixin from 'ghost-admin/mixins/unauthenticated-route-mixin';
-import ValidationEngine from 'ghost-admin/mixins/validation-engine';
+import UnauthenticatedRouteMixin from 'soul-admin/mixins/unauthenticated-route-mixin';
+import ValidationEngine from 'soul-admin/mixins/validation-engine';
 import {inject as service} from '@ember/service';
 
 const {Promise} = RSVP;

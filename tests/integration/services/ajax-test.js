@@ -1,5 +1,5 @@
 import Pretender from 'pretender';
-import config from 'ghost-admin/config/environment';
+import config from 'soul-admin/config/environment';
 import {describe, it} from 'mocha';
 import {expect} from 'chai';
 import {
@@ -11,7 +11,7 @@ import {
     isRequestEntityTooLargeError,
     isUnsupportedMediaTypeError,
     isVersionMismatchError
-} from 'ghost-admin/services/ajax';
+} from 'soul-admin/services/ajax';
 import {setupTest} from 'ember-mocha';
 
 function stubAjaxEndpoint(server, response = {}, code = 200) {

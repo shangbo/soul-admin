@@ -1,4 +1,4 @@
-import ApplicationAdapter from 'ghost-admin/adapters/application';
-import SlugUrl from 'ghost-admin/mixins/slug-url';
+import ApplicationAdapter from 'soul-admin/adapters/application';
+import SlugUrl from 'soul-admin/mixins/slug-url';
 
 export default ApplicationAdapter.extend(SlugUrl);

@@ -2,12 +2,12 @@
 import $ from 'jquery';
 import Controller from '@ember/controller';
 import RSVP from 'rsvp';
-import config from 'ghost-admin/config/environment';
+import config from 'soul-admin/config/environment';
 import {
     UnsupportedMediaTypeError,
     isRequestEntityTooLargeError,
     isUnsupportedMediaTypeError
-} from 'ghost-admin/services/ajax';
+} from 'soul-admin/services/ajax';
 import {isBlank} from '@ember/utils';
 import {isArray as isEmberArray} from '@ember/array';
 import {run} from '@ember/runloop';

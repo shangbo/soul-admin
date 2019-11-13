@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import ApplicationSerializer from 'ghost-admin/serializers/application';
+import ApplicationSerializer from 'soul-admin/serializers/application';
 
 export default ApplicationSerializer.extend({
     serialize(/*snapshot, options*/) {

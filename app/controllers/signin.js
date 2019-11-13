@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import Controller, {inject as controller} from '@ember/controller';
-import ValidationEngine from 'ghost-admin/mixins/validation-engine';
+import ValidationEngine from 'soul-admin/mixins/validation-engine';
 import {alias} from '@ember/object/computed';
 import {isArray as isEmberArray} from '@ember/array';
-import {isVersionMismatchError} from 'ghost-admin/services/ajax';
+import {isVersionMismatchError} from 'soul-admin/services/ajax';
 import {inject as service} from '@ember/service';
 import {task} from 'ember-concurrency';
 

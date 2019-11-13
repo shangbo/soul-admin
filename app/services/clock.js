@@ -1,5 +1,5 @@
 import Service from '@ember/service';
-import config from 'ghost-admin/config/environment';
+import config from 'soul-admin/config/environment';
 import moment from 'moment';
 import {run} from '@ember/runloop';
 

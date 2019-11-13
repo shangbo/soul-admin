@@ -4,7 +4,7 @@ import {
     isRequestEntityTooLargeError,
     isUnsupportedMediaTypeError,
     isVersionMismatchError
-} from 'ghost-admin/services/ajax';
+} from 'soul-admin/services/ajax';
 import {computed} from '@ember/object';
 import {htmlSafe} from '@ember/string';
 import {isBlank} from '@ember/utils';

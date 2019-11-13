@@ -2,9 +2,9 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 import AuthConfiguration from 'ember-simple-auth/configuration';
 import RSVP from 'rsvp';
 import Route from '@ember/routing/route';
-import ShortcutsRoute from 'ghost-admin/mixins/shortcuts-route';
-import ctrlOrCmd from 'ghost-admin/utils/ctrl-or-cmd';
-import windowProxy from 'ghost-admin/utils/window-proxy';
+import ShortcutsRoute from 'soul-admin/mixins/shortcuts-route';
+import ctrlOrCmd from 'soul-admin/utils/ctrl-or-cmd';
+import windowProxy from 'soul-admin/utils/window-proxy';
 import {
     isAjaxError,
     isNotFoundError,
@@ -14,7 +14,7 @@ import {isArray as isEmberArray} from '@ember/array';
 import {
     isMaintenanceError,
     isVersionMismatchError
-} from 'ghost-admin/services/ajax';
+} from 'soul-admin/services/ajax';
 import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 

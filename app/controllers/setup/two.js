@@ -1,10 +1,10 @@
 /* eslint-disable camelcase, ghost/ember/alias-model-in-controller */
 import Controller, {inject as controller} from '@ember/controller';
 import RSVP from 'rsvp';
-import ValidationEngine from 'ghost-admin/mixins/validation-engine';
+import ValidationEngine from 'soul-admin/mixins/validation-engine';
 import {get} from '@ember/object';
 import {isInvalidError} from 'ember-ajax/errors';
-import {isVersionMismatchError} from 'ghost-admin/services/ajax';
+import {isVersionMismatchError} from 'soul-admin/services/ajax';
 import {inject as service} from '@ember/service';
 import {task} from 'ember-concurrency';
 

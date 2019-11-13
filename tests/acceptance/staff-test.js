@@ -1,6 +1,6 @@
-import ctrlOrCmd from 'ghost-admin/utils/ctrl-or-cmd';
+import ctrlOrCmd from 'soul-admin/utils/ctrl-or-cmd';
 import moment from 'moment';
-import windowProxy from 'ghost-admin/utils/window-proxy';
+import windowProxy from 'soul-admin/utils/window-proxy';
 import {Response} from 'ember-cli-mirage';
 import {afterEach, beforeEach, describe, it} from 'mocha';
 import {authenticateSession, invalidateSession} from 'ember-simple-auth/test-support';

@@ -1,8 +1,8 @@
 import Controller from '@ember/controller';
-import boundOneWay from 'ghost-admin/utils/bound-one-way';
-import isNumber from 'ghost-admin/utils/isNumber';
+import boundOneWay from 'soul-admin/utils/bound-one-way';
+import isNumber from 'soul-admin/utils/isNumber';
 import validator from 'validator';
-import windowProxy from 'ghost-admin/utils/window-proxy';
+import windowProxy from 'soul-admin/utils/window-proxy';
 import {alias, and, not, or, readOnly} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import {isArray as isEmberArray} from '@ember/array';

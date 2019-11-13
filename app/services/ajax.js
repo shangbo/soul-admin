@@ -1,5 +1,5 @@
 import AjaxService from 'ember-ajax/services/ajax';
-import config from 'ghost-admin/config/environment';
+import config from 'soul-admin/config/environment';
 import {AjaxError, isAjaxError} from 'ember-ajax/errors';
 import {get} from '@ember/object';
 import {isArray as isEmberArray} from '@ember/array';

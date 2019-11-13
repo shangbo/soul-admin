@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import EmberObject from '@ember/object';
-import ghostPaths from 'ghost-admin/utils/ghost-paths';
+import ghostPaths from 'soul-admin/utils/ghost-paths';
 import {all, task} from 'ember-concurrency';
 import {get} from '@ember/object';
 import {isArray} from '@ember/array';

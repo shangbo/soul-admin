@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 import EmberObject from '@ember/object';
 import Route from '@ember/routing/route';
-import UnauthenticatedRouteMixin from 'ghost-admin/mixins/unauthenticated-route-mixin';
+import UnauthenticatedRouteMixin from 'soul-admin/mixins/unauthenticated-route-mixin';
 
 const {Errors} = DS;
 

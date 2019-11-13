@@ -1,7 +1,7 @@
 import Component from '@ember/component';
-import ShortcutsMixin from 'ghost-admin/mixins/shortcuts';
+import ShortcutsMixin from 'soul-admin/mixins/shortcuts';
 import calculatePosition from 'ember-basic-dropdown/utils/calculate-position';
-import ctrlOrCmd from 'ghost-admin/utils/ctrl-or-cmd';
+import ctrlOrCmd from 'soul-admin/utils/ctrl-or-cmd';
 import {and, equal, match} from '@ember/object/computed';
 import {getOwner} from '@ember/application';
 import {htmlSafe} from '@ember/string';

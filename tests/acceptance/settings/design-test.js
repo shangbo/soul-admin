@@ -1,6 +1,6 @@
 import Mirage from 'ember-cli-mirage';
-import ctrlOrCmd from 'ghost-admin/utils/ctrl-or-cmd';
-import mockThemes from 'ghost-admin/mirage/config/themes';
+import ctrlOrCmd from 'soul-admin/utils/ctrl-or-cmd';
+import mockThemes from 'soul-admin/mirage/config/themes';
 import {authenticateSession, invalidateSession} from 'ember-simple-auth/test-support';
 import {beforeEach, describe, it} from 'mocha';
 import {blur, click, currentRouteName, currentURL, fillIn, find, findAll, triggerEvent, typeIn} from '@ember/test-helpers';

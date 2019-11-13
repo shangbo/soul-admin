@@ -1,6 +1,6 @@
-import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
-import CurrentUserSettings from 'ghost-admin/mixins/current-user-settings';
-import ShortcutsRoute from 'ghost-admin/mixins/shortcuts-route';
+import AuthenticatedRoute from 'soul-admin/routes/authenticated';
+import CurrentUserSettings from 'soul-admin/mixins/current-user-settings';
+import ShortcutsRoute from 'soul-admin/mixins/shortcuts-route';
 
 export default AuthenticatedRoute.extend(CurrentUserSettings, ShortcutsRoute, {
     queryParams: {

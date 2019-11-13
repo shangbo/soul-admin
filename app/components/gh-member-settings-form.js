@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import boundOneWay from 'ghost-admin/utils/bound-one-way';
+import boundOneWay from 'soul-admin/utils/bound-one-way';
 import moment from 'moment';
 import {computed} from '@ember/object';
 import {inject as service} from '@ember/service';

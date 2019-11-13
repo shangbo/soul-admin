@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import Model from 'ember-data/model';
-import ValidationEngine from 'ghost-admin/mixins/validation-engine';
+import ValidationEngine from 'soul-admin/mixins/validation-engine';
 import attr from 'ember-data/attr';
-import boundOneWay from 'ghost-admin/utils/bound-one-way';
+import boundOneWay from 'soul-admin/utils/bound-one-way';
 import moment from 'moment';
 import {belongsTo, hasMany} from 'ember-data/relationships';
 import {compare} from '@ember/utils';

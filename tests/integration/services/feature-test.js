@@ -1,5 +1,5 @@
 import EmberError from '@ember/error';
-import FeatureService, {feature} from 'ghost-admin/services/feature';
+import FeatureService, {feature} from 'soul-admin/services/feature';
 import Pretender from 'pretender';
 import wait from 'ember-test-helpers/wait';
 import {describe, it} from 'mocha';

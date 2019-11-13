@@ -1,5 +1,5 @@
 import TextArea from '@ember/component/text-area';
-import TextInputMixin from 'ghost-admin/mixins/text-input';
+import TextInputMixin from 'soul-admin/mixins/text-input';
 import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 

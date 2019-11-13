@@ -1,4 +1,4 @@
-import GhostTextInput from 'ghost-admin/components/gh-text-input';
+import GhostTextInput from 'soul-admin/components/gh-text-input';
 
 /**
  * This doesn't override the OneWayInput component because

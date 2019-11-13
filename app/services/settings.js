@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import RSVP from 'rsvp';
 import Service, {inject as service} from '@ember/service';
-import ValidationEngine from 'ghost-admin/mixins/validation-engine';
+import ValidationEngine from 'soul-admin/mixins/validation-engine';
 import {get} from '@ember/object';
 
 // ember-cli-shims doesn't export _ProxyMixin

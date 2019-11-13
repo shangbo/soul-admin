@@ -1,6 +1,6 @@
 /* global SimpleMDE */
 import TextArea from '@ember/component/text-area';
-import config from 'ghost-admin/config/environment';
+import config from 'soul-admin/config/environment';
 import {assign} from '@ember/polyfills';
 import {computed} from '@ember/object';
 import {isEmpty} from '@ember/utils';

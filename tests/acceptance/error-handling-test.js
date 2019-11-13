@@ -5,7 +5,7 @@ import {click, currentRouteName, fillIn, find, findAll, visit} from '@ember/test
 import {expect} from 'chai';
 import {setupApplicationTest} from 'ember-mocha';
 import {setupMirage} from 'ember-cli-mirage/test-support';
-import {versionMismatchResponse} from 'ghost-admin/mirage/utils';
+import {versionMismatchResponse} from 'soul-admin/mirage/utils';
 
 let htmlErrorResponse = function () {
     return new Mirage.Response(

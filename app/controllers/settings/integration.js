@@ -1,9 +1,9 @@
 import Controller from '@ember/controller';
-import copyTextToClipboard from 'ghost-admin/utils/copy-text-to-clipboard';
+import copyTextToClipboard from 'soul-admin/utils/copy-text-to-clipboard';
 import {
     IMAGE_EXTENSIONS,
     IMAGE_MIME_TYPES
-} from 'ghost-admin/components/gh-image-uploader';
+} from 'soul-admin/components/gh-image-uploader';
 import {alias} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import {htmlSafe} from '@ember/string';

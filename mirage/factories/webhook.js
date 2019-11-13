@@ -1,5 +1,5 @@
 import moment from 'moment';
-import {AVAILABLE_EVENTS} from 'ghost-admin/helpers/event-name';
+import {AVAILABLE_EVENTS} from 'soul-admin/helpers/event-name';
 import {Factory} from 'ember-cli-mirage';
 
 export default Factory.extend({

@@ -1,4 +1,4 @@
-import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
+import AuthenticatedRoute from 'soul-admin/routes/authenticated';
 import CurrentUserSettings from '../../../mixins/current-user-settings';
 
 export default AuthenticatedRoute.extend(CurrentUserSettings, {

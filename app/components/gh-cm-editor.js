@@ -1,6 +1,6 @@
 /* global CodeMirror */
 import Component from '@ember/component';
-import boundOneWay from 'ghost-admin/utils/bound-one-way';
+import boundOneWay from 'soul-admin/utils/bound-one-way';
 import {assign} from '@ember/polyfills';
 import {bind, once, scheduleOnce} from '@ember/runloop';
 import {inject as service} from '@ember/service';

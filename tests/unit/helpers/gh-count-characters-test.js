@@ -1,4 +1,4 @@
-import {countCharacters} from 'ghost-admin/helpers/gh-count-characters';
+import {countCharacters} from 'soul-admin/helpers/gh-count-characters';
 import {describe, it} from 'mocha';
 import {expect} from 'chai';
 

@@ -1,6 +1,6 @@
 import $ from 'jquery';
 // This is used by the dropdown initializer to manage closing & toggling
-import BodyEventListener from 'ghost-admin/mixins/body-event-listener';
+import BodyEventListener from 'soul-admin/mixins/body-event-listener';
 import Evented from '@ember/object/evented';
 import Service from '@ember/service';
 

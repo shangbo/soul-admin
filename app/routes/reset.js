@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import UnauthenticatedRouteMixin from 'ghost-admin/mixins/unauthenticated-route-mixin';
+import UnauthenticatedRouteMixin from 'soul-admin/mixins/unauthenticated-route-mixin';
 import {inject as service} from '@ember/service';
 
 export default Route.extend(UnauthenticatedRouteMixin, {

@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import ValidationState from 'ghost-admin/mixins/validation-state';
+import ValidationState from 'soul-admin/mixins/validation-state';
 import {computed} from '@ember/object';
 import {readOnly} from '@ember/object/computed';
 import {run} from '@ember/runloop';

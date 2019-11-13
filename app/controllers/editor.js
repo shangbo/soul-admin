@@ -1,8 +1,8 @@
 import Controller from '@ember/controller';
-import PostModel from 'ghost-admin/models/post';
-import boundOneWay from 'ghost-admin/utils/bound-one-way';
-import config from 'ghost-admin/config/environment';
-import isNumber from 'ghost-admin/utils/isNumber';
+import PostModel from 'soul-admin/models/post';
+import boundOneWay from 'soul-admin/utils/bound-one-way';
+import config from 'soul-admin/config/environment';
+import isNumber from 'soul-admin/utils/isNumber';
 import {alias, mapBy} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import {inject as controller} from '@ember/controller';
@@ -10,7 +10,7 @@ import {htmlSafe} from '@ember/string';
 import {isBlank} from '@ember/utils';
 import {isArray as isEmberArray} from '@ember/array';
 import {isInvalidError} from 'ember-ajax/errors';
-import {isVersionMismatchError} from 'ghost-admin/services/ajax';
+import {isVersionMismatchError} from 'soul-admin/services/ajax';
 import {inject as service} from '@ember/service';
 import {task, taskGroup, timeout} from 'ember-concurrency';
 

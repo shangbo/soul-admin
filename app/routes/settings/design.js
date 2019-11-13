@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
-import CurrentUserSettings from 'ghost-admin/mixins/current-user-settings';
+import AuthenticatedRoute from 'soul-admin/routes/authenticated';
+import CurrentUserSettings from 'soul-admin/mixins/current-user-settings';
 import RSVP from 'rsvp';
 import {inject as service} from '@ember/service';
 

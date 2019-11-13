@@ -1,6 +1,6 @@
 import RSVP from 'rsvp';
 import Service, {inject as service} from '@ember/service';
-import config from 'ghost-admin/config/environment';
+import config from 'soul-admin/config/environment';
 
 export default Service.extend({
     ajax: service(),
