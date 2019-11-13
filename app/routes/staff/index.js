@@ -1,14 +1,10 @@
-import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
-import CurrentUserSettings from 'ghost-admin/mixins/current-user-settings';
-import styleBody from 'ghost-admin/mixins/style-body';
+import AuthenticatedRoute from 'soul-admin/routes/authenticated';
+import CurrentUserSettings from 'soul-admin/mixins/current-user-settings';
 import {inject as service} from '@ember/service';
 
-export default AuthenticatedRoute.extend(styleBody, CurrentUserSettings, {
+export default AuthenticatedRoute.extend(CurrentUserSettings, {
     infinity: service(),
     session: service(),
-
-    titleToken: 'Staff',
-    classNames: ['view-team'],
 
     model() {
         return this.session.user;
@@ -23,5 +19,11 @@ export default AuthenticatedRoute.extend(styleBody, CurrentUserSettings, {
         reload() {
             this.controller.backgroundUpdate.perform();
         }
+    },
+
+    buildRouteInfoMetadata() {
+        return {
+            titleToken: 'Staff'
+        };
     }
 });

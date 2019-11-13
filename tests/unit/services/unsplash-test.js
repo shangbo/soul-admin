@@ -1,20 +1,12 @@
 import Pretender from 'pretender';
 import wait from 'ember-test-helpers/wait';
 import {describe, it} from 'mocha';
-import {errorOverride, errorReset} from '../../helpers/adapter-error';
 import {expect} from 'chai';
 import {run} from '@ember/runloop';
 import {setupTest} from 'ember-mocha';
 
 describe('Unit: Service: unsplash', function () {
-    setupTest('service:unsplash', {
-        needs: [
-            'service:ajax',
-            'service:config',
-            'service:ghostPaths',
-            'service:settings'
-        ]
-    });
+    setupTest();
 
     let server;
 
@@ -48,16 +40,14 @@ describe('Unit: Service: unsplash', function () {
                 return [403, {'x-ratelimit-remaining': '0'}, 'Rate Limit Exceeded'];
             });
 
-            let service = this.subject();
+            let service = this.owner.lookup('service:unsplash');
 
             run(() => {
                 service.loadNextPage();
             });
             await wait();
 
-            errorOverride();
             expect(service.get('error')).to.have.string('Unsplash API rate limit reached');
-            errorReset();
         });
 
         it('handles json errors', async function () {
@@ -67,16 +57,14 @@ describe('Unit: Service: unsplash', function () {
                 })];
             });
 
-            let service = this.subject();
+            let service = this.owner.lookup('service:unsplash');
 
             run(() => {
                 service.loadNextPage();
             });
             await wait();
 
-            errorOverride();
             expect(service.get('error')).to.equal('Unsplash API Error');
-            errorReset();
         });
 
         it('handles text errors', async function () {
@@ -84,16 +72,14 @@ describe('Unit: Service: unsplash', function () {
                 return [500, {'Content-Type': 'text/xml'}, 'Unsplash text error'];
             });
 
-            let service = this.subject();
+            let service = this.owner.lookup('service:unsplash');
 
             run(() => {
                 service.loadNextPage();
             });
             await wait();
 
-            errorOverride();
             expect(service.get('error')).to.equal('Unsplash text error');
-            errorReset();
         });
     });
 

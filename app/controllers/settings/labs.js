@@ -2,13 +2,12 @@
 import $ from 'jquery';
 import Controller from '@ember/controller';
 import RSVP from 'rsvp';
-import config from 'ghost-admin/config/environment';
+import config from 'soul-admin/config/environment';
 import {
     UnsupportedMediaTypeError,
     isRequestEntityTooLargeError,
     isUnsupportedMediaTypeError
-} from 'ghost-admin/services/ajax';
-import {computed} from '@ember/object';
+} from 'soul-admin/services/ajax';
 import {isBlank} from '@ember/utils';
 import {isArray as isEmberArray} from '@ember/array';
 import {run} from '@ember/runloop';
@@ -26,7 +25,7 @@ const IMPORT_MIME_TYPES = [
 const JSON_EXTENSION = ['json'];
 const JSON_MIME_TYPE = ['application/json'];
 
-const YAML_EXTENSION = ['yml', 'yaml'];
+const YAML_EXTENSION = ['yaml'];
 const YAML_MIME_TYPE = [
     'text/vnd.yaml',
     'application/vnd.yaml',
@@ -46,7 +45,6 @@ export default Controller.extend({
     importErrors: null,
     importSuccessful: false,
     showDeleteAllModal: false,
-    showMemberConfig: false,
     submitting: false,
     uploadButtonText: 'Import',
 
@@ -63,23 +61,6 @@ export default Controller.extend({
         this.yamlExtension = YAML_EXTENSION;
         this.yamlMimeType = YAML_MIME_TYPE;
     },
-
-    subscriptionSettings: computed('settings.membersSubscriptionSettings', function () {
-        let subscriptionSettings = this.parseSubscriptionSettings(this.get('settings.membersSubscriptionSettings'));
-        let stripeProcessor = subscriptionSettings.paymentProcessors.find((proc) => {
-            return (proc.adapter === 'stripe');
-        });
-        let monthlyPlan = stripeProcessor.config.plans.find(plan => plan.interval === 'month');
-        let yearlyPlan = stripeProcessor.config.plans.find(plan => plan.interval === 'year');
-        monthlyPlan.dollarAmount = (monthlyPlan.amount / 100);
-        yearlyPlan.dollarAmount = (yearlyPlan.amount / 100);
-        stripeProcessor.config.plans = {
-            monthly: monthlyPlan,
-            yearly: yearlyPlan
-        };
-        subscriptionSettings.stripeConfig = stripeProcessor.config;
-        return subscriptionSettings;
-    }),
 
     actions: {
         onUpload(file) {
@@ -161,10 +142,6 @@ export default Controller.extend({
             this.toggleProperty('showDeleteAllModal');
         },
 
-        toggleMemberConfig() {
-            this.toggleProperty('showMemberConfig');
-        },
-
         /**
          * Opens a file selection dialog - Triggered by "Upload x" buttons,
          * searches for the hidden file input within the .gh-setting element
@@ -180,64 +157,12 @@ export default Controller.extend({
                 .click();
         },
 
-        setSubscriptionSettings(key, event) {
-            let subscriptionSettings = this.parseSubscriptionSettings(this.get('settings.membersSubscriptionSettings'));
-            let stripeProcessor = subscriptionSettings.paymentProcessors.find((proc) => {
-                return (proc.adapter === 'stripe');
-            });
-            let stripeConfig = stripeProcessor.config;
-            stripeConfig.product = {
-                name: this.settings.get('title')
-            };
-            if (key === 'isPaid') {
-                subscriptionSettings.isPaid = event;
-            }
-            if (key === 'secret_token' || key === 'public_token') {
-                stripeConfig[key] = event.target.value;
-            }
-            if (key === 'month' || key === 'year') {
-                stripeConfig.plans = stripeConfig.plans.map((plan) => {
-                    if (key === plan.interval) {
-                        plan.amount = event.target.value * 100;
-                    }
-                    return plan;
-                });
-            }
-            this.set('settings.membersSubscriptionSettings', JSON.stringify(subscriptionSettings));
-        }
-    },
+        setDefaultContentVisibility(value) {
+            this.set('settings.defaultContentVisibility', value);
+        },
 
-    parseSubscriptionSettings(settingsString) {
-        try {
-            return JSON.parse(settingsString);
-        } catch (e) {
-            return {
-                isPaid: false,
-                paymentProcessors: [{
-                    adapter: 'stripe',
-                    config: {
-                        secret_token: '',
-                        public_token: '',
-                        product: {
-                            name: this.settings.get('title')
-                        },
-                        plans: [
-                            {
-                                name: 'Monthly',
-                                currency: 'usd',
-                                interval: 'month',
-                                amount: ''
-                            },
-                            {
-                                name: 'Yearly',
-                                currency: 'usd',
-                                interval: 'year',
-                                amount: ''
-                            }
-                        ]
-                    }
-                }]
-            };
+        setMembersSubscriptionSettings(subscriptionSettings) {
+            this.set('settings.membersSubscriptionSettings', JSON.stringify(subscriptionSettings));
         }
     },
 
@@ -296,11 +221,7 @@ export default Controller.extend({
     }).drop(),
 
     saveSettings: task(function* () {
-        try {
-            return yield this.settings.save();
-        } catch (error) {
-            throw error;
-        }
+        return yield this.settings.save();
     }).drop(),
 
     redirectUploadResult: task(function* (success) {

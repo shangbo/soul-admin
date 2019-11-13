@@ -1,4 +1,4 @@
-import ApplicationAdapter from 'ghost-admin/adapters/application';
+import ApplicationAdapter from 'soul-admin/adapters/application';
 
 export default ApplicationAdapter.extend({
     // posts and pages now include everything by default

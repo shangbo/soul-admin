@@ -1,6 +1,6 @@
 /* global key */
 import Component from '@ember/component';
-import ShortcutsMixin from 'ghost-admin/mixins/shortcuts';
+import ShortcutsMixin from 'soul-admin/mixins/shortcuts';
 import {bind} from '@ember/runloop';
 import {or} from '@ember/object/computed';
 import {inject as service} from '@ember/service';
@@ -78,7 +78,7 @@ export default Component.extend(ShortcutsMixin, {
             this.unsplash.triggerDownload(photo);
 
             let selectParams = {
-                src: photo.urls.regular,
+                src: photo.urls.regular.replace(/&w=1080/, '&w=2000'),
                 alt: photo.description || '',
                 caption: `Photo by <a href="${photo.user.links.html}?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">${photo.user.name}</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a>`
             };

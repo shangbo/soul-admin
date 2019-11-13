@@ -49,6 +49,13 @@
 }
 
 
+/* Underline */
+
+.underline:hover {
+  text-decoration: underline;
+}
+
+
 /*
 
   Lighter variation
@@ -94,6 +101,16 @@
 
 .highlight-white:hover {
     background-color: rgba(255, 255, 255, 0.15)!important;
+}
+
+/* Highlight whitegrey */
+.highlight-whitegrey {
+    transition: background var(--animation-speed-fast) ease!important;
+}
+
+.highlight-whitegrey:hover {
+    background-color: color-mod(var(--whitegrey-l2)) !important;
+    transition: none;
 }
 
 

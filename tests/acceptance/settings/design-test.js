@@ -1,13 +1,13 @@
 import Mirage from 'ember-cli-mirage';
-import ctrlOrCmd from 'ghost-admin/utils/ctrl-or-cmd';
-import mockThemes from 'ghost-admin/mirage/config/themes';
-import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import ctrlOrCmd from 'soul-admin/utils/ctrl-or-cmd';
+import mockThemes from 'soul-admin/mirage/config/themes';
 import {authenticateSession, invalidateSession} from 'ember-simple-auth/test-support';
 import {beforeEach, describe, it} from 'mocha';
 import {blur, click, currentRouteName, currentURL, fillIn, find, findAll, triggerEvent, typeIn} from '@ember/test-helpers';
 import {expect} from 'chai';
 import {fileUpload} from '../../helpers/file-upload';
 import {setupApplicationTest} from 'ember-mocha';
+import {setupMirage} from 'ember-cli-mirage/test-support';
 import {visit} from '../../helpers/visit';
 
 // simulate jQuery's `:visible` pseudo-selector
@@ -294,8 +294,8 @@ describe('Acceptance: Settings - Design', function () {
                         {
                             message: 'Theme is not compatible or contains errors.',
                             type: 'ThemeValidationError',
-                            details: [
-                                {
+                            details: {
+                                errors: [{
                                     level: 'error',
                                     rule: 'Assets such as CSS & JS must use the <code>{{asset}}</code> helper',
                                     details: '<p>The listed files should be included using the <code>{{asset}}</code> helper.</p>',
@@ -304,8 +304,7 @@ describe('Acceptance: Settings - Design', function () {
                                             ref: '/assets/javascripts/ui.js'
                                         }
                                     ]
-                                },
-                                {
+                                }, {
                                     level: 'error',
                                     rule: 'Templates must contain valid Handlebars.',
                                     failures: [
@@ -318,8 +317,8 @@ describe('Acceptance: Settings - Design', function () {
                                             message: 'The partial index_meta could not be found'
                                         }
                                     ]
-                                }
-                            ]
+                                }]
+                            }
                         }
                     ]
                 });
@@ -384,7 +383,7 @@ describe('Acceptance: Settings - Design', function () {
                 theme.warnings = [{
                     level: 'warning',
                     rule: 'Assets such as CSS & JS must use the <code>{{asset}}</code> helper',
-                    details: '<p>The listed files should be included using the <code>{{asset}}</code> helper.  For more information, please see the <a href="https://docs.ghost.org/api/handlebars-themes/helpers/asset/">asset helper documentation</a>.</p>',
+                    details: '<p>The listed files should be included using the <code>{{asset}}</code> helper.  For more information, please see the <a href="https://ghost.org/docs/api/handlebars-themes/helpers/asset/">asset helper documentation</a>.</p>',
                     failures: [
                         {
                             ref: '/assets/dist/img/apple-touch-icon.png'
@@ -492,8 +491,11 @@ describe('Acceptance: Settings - Design', function () {
                         {
                             message: 'Theme is not compatible or contains errors.',
                             type: 'ThemeValidationError',
-                            details: [
-                                {
+                            details: {
+                                checkedVersion: '2.x',
+                                name: 'casper',
+                                version: '2.9.7',
+                                errors: [{
                                     level: 'error',
                                     rule: 'Assets such as CSS & JS must use the <code>{{asset}}</code> helper',
                                     details: '<p>The listed files should be included using the <code>{{asset}}</code> helper.</p>',
@@ -502,9 +504,9 @@ describe('Acceptance: Settings - Design', function () {
                                             ref: '/assets/javascripts/ui.js'
                                         }
                                     ]
-                                },
-                                {
+                                }, {
                                     level: 'error',
+                                    fatal: true,
                                     rule: 'Templates must contain valid Handlebars.',
                                     failures: [
                                         {
@@ -516,8 +518,8 @@ describe('Acceptance: Settings - Design', function () {
                                             message: 'The partial index_meta could not be found'
                                         }
                                     ]
-                                }
-                            ]
+                                }]
+                            }
                         }
                     ]
                 });
@@ -533,14 +535,14 @@ describe('Acceptance: Settings - Design', function () {
             ).to.equal('Activation failed');
 
             expect(
-                find('[data-test-theme-warnings]').textContent,
+                find('[data-test-theme-fatal-errors]').textContent,
                 'top-level errors are displayed in activation errors'
             ).to.match(/Templates must contain valid Handlebars/);
 
-            await click('[data-test-toggle-details]');
+            await click('[data-test-theme-errors] [data-test-toggle-details]');
 
             expect(
-                find('.theme-validation-details').textContent,
+                find('[data-test-theme-errors] .theme-validation-details').textContent,
                 'top-level errors do not escape HTML in activation errors'
             ).to.match(/The listed files should be included using the {{asset}} helper/);
 
@@ -563,7 +565,7 @@ describe('Acceptance: Settings - Design', function () {
                 theme.update({warnings: [{
                     level: 'warning',
                     rule: 'Assets such as CSS & JS must use the <code>{{asset}}</code> helper',
-                    details: '<p>The listed files should be included using the <code>{{asset}}</code> helper.  For more information, please see the <a href="https://docs.ghost.org/api/handlebars-themes/helpers/asset/">asset helper documentation</a>.</p>',
+                    details: '<p>The listed files should be included using the <code>{{asset}}</code> helper.  For more information, please see the <a href="https://ghost.org/docs/api/handlebars-themes/helpers/asset/">asset helper documentation</a>.</p>',
                     failures: [
                         {
                             ref: '/assets/dist/img/apple-touch-icon.png'

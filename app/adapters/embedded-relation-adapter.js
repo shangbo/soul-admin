@@ -1,4 +1,4 @@
-import BaseAdapter from 'ghost-admin/adapters/base';
+import BaseAdapter from 'soul-admin/adapters/base';
 import {get} from '@ember/object';
 import {isNone} from '@ember/utils';
 import {underscore} from '@ember/string';

@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import config from 'ghost-admin/config/environment';
+import config from 'soul-admin/config/environment';
 import {inject as service} from '@ember/service';
 import {task, timeout} from 'ember-concurrency';
 

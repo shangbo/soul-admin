@@ -1,64 +1,85 @@
 <section class="gh-canvas">
-    <header class="gh-canvas-header">
+    <GhCanvasHeader class="gh-canvas-header members-header">
         <h2 class="gh-canvas-title" data-test-screen-title>Members</h2>
-    </header>
-
-    <section class="view-container h-100">
-
-        <div>
-            <GhTextInput placeholder="Search members..." @value={{this.searchText}}
-                @input={{action (mut this.searchText) value="target.value"}} />
-        </div>
-
-        <div class="flex justify-between items-center pt1 mt7">
-            <h2 class="f7 fw4 midgrey">
-                {{#if this.searchText}}
-                    Search result
+        <section class="view-actions">
+            <span class="dropdown">
+                {{#gh-dropdown-button dropdownName="members-actions-menu" classNames="gh-btn gh-btn-white gh-btn-icon only-has-icon gh-actions-cog" title="Members Actions" data-test-user-actions=true}}
+                <span>
+                    {{svg-jar "settings"}}
+                    <span class="hidden">Members Actions</span>
+                </span>
+                {{/gh-dropdown-button}}
+                {{#gh-dropdown name="members-actions-menu" tagName="ul" classNames="gh-member-actions-menu dropdown-menu dropdown-triangle-top-right"}}
+                <li>
+                    {{#link-to "members.import" class="mr2" data-test-link="import-csv"}}
+                    <span>Import CSV </span>
+                    {{/link-to}}
+                </li>
+                <li>
+                    <a href="#" {{action 'exportData'}} class="mr2">
+                        <span>Export CSV </span>
+                    </a>
+                </li>
+                {{/gh-dropdown}}
+            </span>
+            <div class="relative gh-members-header-search">
+                {{svg-jar "search" class="gh-input-search-icon"}}
+                <GhTextInput placeholder="Search members..." @value={{this.searchText}} @input={{action (mut this.searchText) value="target.value"}} class="gh-members-list-searchfield {{if this.searchText "active"}}" />
+            </div>
+        </section>
+    </GhCanvasHeader>
+    <section class="view-container">
+        <section class="content-list">
+            <ol class="members-list gh-list {{unless filteredMembers "no-posts"}}">
+                {{#if filteredMembers}}
+                    <li class="gh-list-row header">
+                        <div class="gh-list-header">
+                            {{#if this.searchText}}
+                                Search result
+                            {{else}}
+                                {{#if this.fetchMembers.lastSuccessful}}
+                                    {{pluralize memberCount "member"}}
+                                {{else}}
+                                    Loading...
+                                {{/if}}
+                            {{/if}}
+                        </div>
+                        <div class="gh-list-header gh-list-cellwidth-20 nowrap">Created</div>
+                        <div class="gh-list-header gh-list-cellwidth-chevron"></div>
+                    </li>
+                    {{#vertical-collection
+                                items=filteredMembers
+                                key="id"
+                                containerSelector=".gh-main"
+                                estimateHeight=60
+                                bufferSize=20
+                                as |member|
+                            }}
+                    {{gh-members-list-item
+                                    member=member
+                                    data-test-member-id=member.id
+                                }}
+                    {{/vertical-collection}}
                 {{else}}
-                    All members
-                    {{#if this.fetchMembers.lastSuccessful}}
-                        ({{this.meta.pagination.total}})
+                    {{#if this.fetchMembers.isRunning}}
+                        <div class="gh-content">
+                            <GhLoadingSpinner />
+                        </div>
                     {{else}}
-                        (Loading...)
+                        <li class="no-posts-box">
+                            <div class="no-posts">
+                                {{svg-jar "members-placeholder" class="gh-members-placeholder"}}
+                                {{#if this.searchText}}
+                                    <h3>No members found!</h3>
+                                {{else}}
+                                    <h3>You don't have any members</h3>
+                                {{/if}}
+                            </div>
+                        </li>
                     {{/if}}
                 {{/if}}
-            </h2>
-        </div>
-
-        {{#if this.filteredMembers}}
-            {{!-- members list, styles taken from .apps-grid --}}
-            <div class="flex flex-row flex-wrap items-start ba br3 b--whitegrey mt2 mb10">
-                <VerticalCollection
-                    @items={{this.filteredMembers}}
-                    @key="id"
-                    @containerSelector=".gh-main"
-                    @estimateHeight=76
-                    as |member index|
-                >
-                    <div class="flex-grow-1 flex-shrink-1" style="flex-basis: 100%">
-                        {{#link-to "member" member classNames="link whitegrey"}}
-                            <article class="flex items-center justify-between pa4 {{if index "bt"}}">
-                                <div class="flex items-center">
-                                    <GhMemberAvatar @member={{member}} class="w10 h10 mr4" />
-                                    <div class="flex flex-column">
-                                        <h3 class="darkgrey ma0 f5 fw7">{{member.name}}</h3>
-                                        <p class="midgrey ma0 pa0 f7">{{member.email}}</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center">{{svg-jar "arrow-right" class="w4 h4 fill-midlightgrey"}}</div>
-                            </article>
-                        {{/link-to}}
-                    </div>
-                </VerticalCollection>
-            </div>
-        {{else}}
-            {{#if this.fetchMembers.isRunning}}
-                <div class="gh-content">
-                    <GhLoadingSpinner />
-                </div>
-            {{else}}
-                <p class="mt2 pt10 bt b--whitegrey tc midlightgrey">No members found.</p>
-            {{/if}}
-        {{/if}}
+            </ol>
+        </section>
     </section>
 </section>
+{{outlet}}

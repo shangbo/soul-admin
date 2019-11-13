@@ -3,11 +3,17 @@ import Route from '@ember/routing/route';
 export default Route.extend({
     controllerName: 'error',
     templateName: 'error',
-    titleToken: 'Error',
 
     model() {
         return {
             status: 404
+        };
+    },
+
+    buildRouteInfoMetadata() {
+        return {
+            titleToken: 'Error',
+            mainClasses: ['gh-main-white']
         };
     }
 });

@@ -37,6 +37,8 @@
 @import "components/tour.css";
 @import "components/unsplash.css";
 @import "components/codemirror.css";
+@import "components/lists.css";
+@import "components/tabs.css";
 
 
 /* Layouts: Groups of Components
@@ -51,11 +53,12 @@
 @import "layouts/user.css";
 @import "layouts/about.css";
 @import "layouts/tags.css";
+@import "layouts/members.css";
 @import "layouts/error.css";
 @import "layouts/apps.css";
 @import "layouts/packages.css";
-@import "layouts/subscribers.css";
 @import "layouts/labs.css";
+@import "layouts/whats-new.css";
 
 
 /* ---------------------------✈️----------------------------- */

@@ -1,9 +1,9 @@
-import ModalComponent from 'ghost-admin/components/modal-base';
-import ghostPaths from 'ghost-admin/utils/ghost-paths';
+import ModalComponent from 'soul-admin/components/modal-base';
+import ghostPaths from 'soul-admin/utils/ghost-paths';
 import {
     UnsupportedMediaTypeError,
     isThemeValidationError
-} from 'ghost-admin/services/ajax';
+} from 'soul-admin/services/ajax';
 import {computed} from '@ember/object';
 import {get} from '@ember/object';
 import {mapBy, or} from '@ember/object/computed';
@@ -129,7 +129,7 @@ export default ModalComponent.extend({
 
         uploadFailed(error) {
             if (isThemeValidationError(error)) {
-                let errors = error.payload.errors[0].details;
+                let errors = error.payload.errors[0].details.errors;
                 let fatalErrors = [];
                 let normalErrors = [];
 
@@ -166,6 +166,7 @@ export default ModalComponent.extend({
         },
 
         reset() {
+            this.set('theme', null);
             this.set('validationWarnings', []);
             this.set('validationErrors', []);
             this.set('fatalValidationErrors', []);

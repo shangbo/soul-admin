@@ -19,7 +19,7 @@
 }
 
 .koenig-editor__editor.__has-no-content:after {
-    font-family: Tahoma For Number,Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-family: georgia,serif;
     font-weight: 300;
     letter-spacing: .02rem;
     line-height: 1.6em;
@@ -41,7 +41,7 @@
 .koenig-editor__editor h5,
 .koenig-editor__editor h6,
 .koenig-editor__editor blockquote {
-    margin: 0.5rem 0 0;
+    margin: 1.6rem 0 0;
     min-width: 100%;
     max-width: 100%;
 }
@@ -57,43 +57,42 @@
 .koenig-editor__editor h5,
 .koenig-editor__editor h6 {
     font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
-    font-weight: 700;
+    font-weight: 600;
+    color: var(--darkgrey-d1);
 }
 
+/* H1 should be almost the same size as the post title to suggest avoid using it */
 .koenig-editor__editor h1 {
-    font-size: 3.3rem;
-    line-height: 1.4em;
-    letter-spacing: .04rem;
+    font-size: 4.4rem;
+    line-height: 1.15em;
 }
 
 .koenig-editor__editor h2 {
-    font-size: 2.8rem;
-    line-height: 1.4em;
-    letter-spacing: .04rem;
+    font-size: 3.2rem;
+    line-height: 1.32em;
 }
 
 .koenig-editor__editor h3 {
-    font-size: 2.3rem;
-    line-height: 1.6em;
-    letter-spacing: .04rem;
+    font-size: 2.5rem;
+    line-height: 1.35em;
 }
 
+/* H4 is almost the same size as H3 to discourage using it */
 .koenig-editor__editor h4 {
-    font-size: 2.0rem;
+    font-size: 2.2rem;
     line-height: 1.4em;
-    letter-spacing: .04rem;
 }
 
 .koenig-editor__editor h5 {
-    font-size: 1.9rem;
+    font-size: 2.0rem;
     line-height: 1.4em;
-    letter-spacing: .06rem;
+    font-weight: 700;
 }
 
 .koenig-editor__editor h6 {
-    font-size: 1.75rem;
+    font-size: 1.85rem;
     line-height: 1.6em;
-    letter-spacing: .04rem;
+    font-weight: 700;
 }
 
 
@@ -125,18 +124,18 @@
 .koenig-editor__editor ol + h4,
 .koenig-editor__editor ol + h5,
 .koenig-editor__editor ol + h6 {
-    margin: 1.5 rem 0 0;
+    margin: 4.8rem 0 0;
 }
 
 /* Heading 1 vertical rhythm */
 
 .koenig-editor__editor h1 + h1 {
-    margin: 1.5rem 0 0;
+    margin: 1.4rem 0 0;
 }
 
 .koenig-editor__editor h2 + h1,
 .koenig-editor__editor h3 + h1 {
-    margin: 1.5rem 0 0;
+    margin: 1.0rem 0 0;
 }
 
 .koenig-editor__editor h4 + h1,
@@ -149,14 +148,14 @@
 }
 
 .koenig-editor__editor div + h1 {
-    margin: 1.2rem 0 0;
+    margin: 4.8rem 0 0;
 }
 
 
 /* Heading 2 */
 
 .koenig-editor__editor h1 + h2 {
-    margin: 1.0rem 0 0;
+    margin: 1.6rem 0 0;
 }
 
 .koenig-editor__editor h2 + h2,
@@ -171,7 +170,7 @@
 }
 
 .koenig-editor__editor div + h2 {
-    margin: 1.2rem 0 0;
+    margin: 4.8rem 0 0;
 }
 
 
@@ -188,7 +187,7 @@
 
 .koenig-editor__editor h1 + h6,
 .koenig-editor__editor h2 + h6 {
-    margin: 1.0rem 0 0;
+    margin: 1.2rem 0 0;
 }
 
 .koenig-editor__editor h3 + h4 {
@@ -226,7 +225,33 @@
 .koenig-editor__editor div + h4,
 .koenig-editor__editor div + h5,
 .koenig-editor__editor div + h6 {
-    margin: 1.0rem 0 0;
+    margin: 4.8rem 0 0;
+}
+
+@media (max-width: 500px) {
+    .koenig-editor__editor h1 {
+        font-size: 3.2rem;
+    }
+
+    .koenig-editor__editor h2 {
+        font-size: 2.8rem;
+    }
+
+    .koenig-editor__editor h3 {
+        font-size: 2.4rem;
+    }
+
+    .koenig-editor__editor h4 {
+        font-size: 2.3rem;
+    }
+
+    .koenig-editor__editor h5 {
+        font-size: 2.0rem;
+    }
+
+    .koenig-editor__editor h6 {
+        font-size: 1.9rem;
+    }
 }
 
 
@@ -238,11 +263,10 @@
 .koenig-editor__editor ul:not(.kg-action-bar):not(.kg-link-toolbar),
 .koenig-editor__editor ol
  {
-    font-family: Tahoma For Number,Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif;
-    font-weight: 300;
-    letter-spacing: .02rem;
+    font-family: georgia,serif;
+    font-weight: 400;
     line-height: 1.6em;
-    font-size: 2rem;
+    font-size: 2.0rem;
 }
 
 .koenig-editor__editor h1 + p {
@@ -257,7 +281,7 @@
 .koenig-editor__editor h4 + p,
 .koenig-editor__editor h5 + p,
 .koenig-editor__editor h6 + p {
-    margin: .8rem 0 0;
+    margin: 0.8rem 0 0;
 }
 
 .koenig-editor__editor p + p,
@@ -265,11 +289,21 @@
 .koenig-editor__editor ul + p,
 .koenig-editor__editor ol + p
  {
-    margin: 0.1rem 0 0;
+    margin: 3.2rem 0 0;
 }
 
 .koenig-editor__editor div + p { /* Mobiledoc cards can be addressed by their wrapper div element */
-    margin: 1.0rem 0 0;
+    margin: 2.8rem 0 0;
+}
+
+@media (max-width: 500px) {
+    .koenig-editor__editor p,
+    .koenig-editor__editor blockquote,
+    .koenig-editor__editor ul:not(.kg-action-bar):not(.kg-link-toolbar),
+    .koenig-editor__editor ol
+    {
+        font-size: 1.8rem;
+    }
 }
 
 
@@ -278,7 +312,7 @@
 
 .koenig-editor__editor ul:not(.kg-action-bar):not(.kg-link-toolbar),
 .koenig-editor__editor ol {
-    margin: 1.0rem 0 0;
+    margin: 1.6rem 0 0;
     padding: 0;
     min-width: 100%;
     max-width: 100%;
@@ -305,14 +339,17 @@
 }
 
 .koenig-editor__editor p + ul:not(.kg-action-bar):not(.kg-link-toolbar),
-.koenig-editor__editor p + ol,
+.koenig-editor__editor p + ol {
+    margin: 3.0rem 0 0;
+}
+
 .koenig-editor__editor ul:not(.kg-action-bar):not(.kg-link-toolbar) + ul:not(.kg-action-bar):not(.kg-link-toolbar),
 .koenig-editor__editor ul:not(.kg-action-bar):not(.kg-link-toolbar) + ol,
 .koenig-editor__editor ol + ul:not(.kg-action-bar):not(.kg-link-toolbar),
 .koenig-editor__editor ol + ol,
 .koenig-editor__editor blockquote + ul:not(.kg-action-bar):not(.kg-link-toolbar),
 .koenig-editor__editor blockquote + ol {
-    margin: 1.0rem 0 0;
+    margin: 3.0rem 0 0;
 }
 
 .koenig-editor__editor h1 + ul:not(.kg-action-bar):not(.kg-link-toolbar),
@@ -329,12 +366,12 @@
 .koenig-editor__editor h5 + ol,
 .koenig-editor__editor h6 + ul:not(.kg-action-bar):not(.kg-link-toolbar),
 .koenig-editor__editor h6 + ol {
-    margin: 1.0rem 0 0;
+    margin: 1.2rem 0 0;
 }
 
 .koenig-editor__editor div + ul:not(.kg-action-bar):not(.kg-link-toolbar),
 .koenig-editor__editor div + ol {
-    margin: 1.0rem 0 0;
+    margin: 2.8rem 0 0;
 }
 
 .koenig-editor__editor ul:not(.kg-action-bar):not(.kg-link-toolbar) ul:not(.kg-action-bar):not(.kg-link-toolbar),
@@ -354,18 +391,18 @@
 }
 
 .koenig-editor__editor > div + div {
-    margin: 1.0rem 0 0;
+    margin: 3.2rem 0 0;
 }
 
 .koenig-editor__editor > p + div,
 .koenig-editor__editor > blockquote + div,
 .koenig-editor__editor > ul + div,
 .koenig-editor__editor > ol + div {
-    margin: 1.0rem 0 0;
+    margin: 3.2rem 0 0;
 }
 
 .koenig-editor__editor > h1 + div {
-    margin: 1.0rem 0 0;
+    margin: 2.8rem 0 0;
 }
 
 .koenig-editor__editor > h2 + div,
@@ -373,11 +410,11 @@
 .koenig-editor__editor > h4 + div,
 .koenig-editor__editor > h5 + div,
 .koenig-editor__editor > h6 + div {
-    margin: 1.0rem 0 0;
+    margin: 1.6rem 0 0;
 }
 
 .koenig-editor__editor hr {
-    margin: 1.0rem 0;
+    margin: 1.6rem 0;
 }
 
 
@@ -385,7 +422,7 @@
 /* -------------------------------------------------------------------- */
 
 .koenig-editor__editor a {
-    color: var(--darkgrey);
+    color: var(--darkgrey-d2);
     text-decoration: none;
     box-shadow: 0 1px 0 var(--white), 0 2px 0 var(--blue);
 }
@@ -418,13 +455,13 @@
 
 .koenig-editor__editor p + blockquote,
 .koenig-editor__editor blockquote + blockquote {
-    margin: 1.0rem 0 0;
+    margin: 3.2rem 0 0;
 }
 
 
 /* Mobiledoc cards can be selected by their wrapper div element */
 .koenig-editor__editor div + blockquote {
-    margin: 1.0rem 0 0;
+    margin: 2.8rem 0 0;
 }
 
 
@@ -434,13 +471,13 @@
 .koenig-editor__editor code,
 .koenig-editor__editor pre {
     font-family: Consolas,Liberation Mono,Menlo,Courier,monospace;
-    background: color-mod(var(--darkgrey) lightness(+4%));
-    border: 1px solid var(--darkgrey);
+    background: color-mod(var(--lightgrey) lightness(+4%));
+    border: 1px solid var(--lightgrey);
 }
 
 .koenig-editor__editor code {
     border-radius: 2px;
-    /* color: var(--pink); */
+    color: var(--darkgrey-d2);
     font-size: 1.65rem;
     line-height: 1em;
     padding: .4rem .4rem .2rem;
@@ -451,7 +488,7 @@
 .koenig-editor__editor pre code {
     border: none;
     font-size: 1.6rem;
-    /* color: var(--pink); */
+    color: var(--darkgrey-d2);
     padding: 0;
 }
 
@@ -463,7 +500,7 @@
     overflow: auto;
     white-space: pre;
     width: 100%;
-    color: var(--darkgrey);
+    color: var(--darkgrey-d2);
 }
 
 .koenig-editor__editor pre.js-embed-placeholder,
@@ -488,11 +525,11 @@
 }
 
 .koenig-card-markdown-rendered hr {
-    margin: 1.0rem 0 0;
+    margin: 3.2rem 0 0;
 }
 
 .koenig-card-markdown-rendered hr + p {
-    margin: 1.0rem 0 0;
+    margin: 3.2rem 0 0;
 }
 
 .koenig-editor .gh-markdown-editor pre {
@@ -578,7 +615,7 @@
 .koenig-editor__editor table {
     font-size: 1.75rem;
     margin: 0;
-    font-family: Tahoma For Number,Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-family: georgia,serif;
     letter-spacing: .02rem;
     line-height: 1.6em;
 }
@@ -715,7 +752,7 @@
 
 .kg-action-bar:after {
     position: absolute;
-    top: 40px;
+    top: 36px;
     left: calc(50% - 8px);
     width: 0;
     border-top: 8px solid var(--darkgrey-d1);
@@ -734,7 +771,7 @@
 .kg-cardmenu-card-selected,
 .kg-cardmenu-card-hover:hover {
     cursor: pointer;
-    background: var(--darkgrey);
+    background: var(--whitegrey-l1);
 }
 
 .kg-cardmenu-card-selected div {
@@ -765,7 +802,7 @@
 }
 
 .koenig-editor {
-    max-width: 760px;
+    max-width: 740px;
 }
 
 /* ⨁ menu
@@ -803,19 +840,104 @@
 
 /* Cards
 /* --------------------------------------------------------------- */
-.koenig-card-click-overlay {
+.kg-bookmark-card {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--whitegrey);
+    background: var(--white);
+}
+
+.koenig-editor__editor .kg-bookmark-container {
+    display: flex;
+    color: var(--darkgrey);
+    text-decoration: none;
+    box-shadow: none;
+    min-height: 120px; /* Just to make sure it's not a super-tiny box */
+}
+
+.kg-bookmark-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 20px;
+}
+
+.kg-bookmark-title {
+    font-size: 1.5rem;
+    line-height: 1.5em;
+    font-weight: 600;
+}
+
+.kg-bookmark-container:hover .kg-bookmark-title {
+    color: var(--blue);
+}
+
+.kg-bookmark-description {
+    display: -webkit-box;
+    font-size: 1.4rem;
+    line-height: 1.5em;
+    margin-top: 10px;
+    color: var(--middarkgrey);
+    font-weight: 400;
+    max-height: 44px;
+    overflow-y: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.kg-bookmark-thumbnail {
+    position: relative;
+    flex-grow: 1;
+    min-width: 33%;
+}
+
+.kg-bookmark-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     position: absolute;
-    left: 0;
-    right: 0;
     top: 0;
-    bottom: 0;
-    z-index: 400;
+    left: 0;
+}
+
+.kg-bookmark-metadata {
+    color: var(--darkgrey);
+    font-size: 1.4rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.kg-bookmark-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+}
+
+.kg-bookmark-author:after {
+    content: "•";
+    margin: 0 6px;
+}
+
+.kg-bookmark-publisher {
+    color: var(--blue);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 240px;
+    white-space: nowrap;
+    display: block;
+    line-height: 1.65em;
 }
 
 
 /* Codemirror overrides
 /* --------------------------------------------------------------- */
 .koenig-editor .CodeMirror pre {
+    font-size: 1.6rem;
     white-space: pre;
 }
 
@@ -828,6 +950,10 @@
     padding: 0;
     overflow: auto;
     background-color: #ffffff;
+}
+
+.koenig-card-code--editor .CodeMirror {
+    background: color-mod(var(--lightgrey) lightness(+4%));
 }
 
 .koenig-card-html--editor .CodeMirror:hover {

@@ -1,10 +1,16 @@
-import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
-import CurrentUserSettings from 'ghost-admin/mixins/current-user-settings';
-import styleBody from 'ghost-admin/mixins/style-body';
+import AuthenticatedRoute from 'soul-admin/routes/authenticated';
+import CurrentUserSettings from 'soul-admin/mixins/current-user-settings';
+import {inject as service} from '@ember/service';
 
-export default AuthenticatedRoute.extend(styleBody, CurrentUserSettings, {
-    titleToken: 'Settings - Integrations',
-    classNames: ['settings-view-integration'],
+export default AuthenticatedRoute.extend(CurrentUserSettings, {
+    router: service(),
+
+    init() {
+        this._super(...arguments);
+        this.router.on('routeWillChange', (transition) => {
+            this.showUnsavedChangesModal(transition);
+        });
+    },
 
     beforeModel() {
         this._super(...arguments);
@@ -14,36 +20,22 @@ export default AuthenticatedRoute.extend(styleBody, CurrentUserSettings, {
     },
 
     model(params, transition) {
-        let integration = this.store.peekRecord('integration', params.integration_id);
-
-        if (integration) {
-            return integration;
-        }
-
-        // integration is not already in the store so use the integrations controller
-        // to fetch all of them and pull out the one we're interested in. Using the
-        // integrations controller means it's possible to navigate back to the integrations
-        // screen without triggering a loading state
-        return this.controllerFor('settings.integrations')
-            .fetchIntegrations.perform()
-            .then((integrations) => {
-                let integration = integrations.findBy('id', params.integration_id);
-
-                if (!integration) {
-                    let path = transition.intent.url.replace(/^\//, '');
-                    return this.replaceWith('error404', {path, status: 404});
-                }
-
-                return integration;
-            });
+        // use the integrations controller to fetch all integrations and pick
+        // out the one we want. Allows navigation back to integrations screen
+        // without a loading state
+        return this
+            .controllerFor('settings.integrations')
+            .integrationModelHook('id', params.integration_id, this, transition);
     },
 
     actions: {
         save() {
             this.controller.send('save');
-        },
+        }
+    },
 
-        willTransition(transition) {
+    showUnsavedChangesModal(transition) {
+        if (transition.from && transition.from.name.match(/^settings\.integration\./) && transition.targetName) {
             let {controller} = this;
 
             // check to see if we're navigating away from the custom integration
@@ -51,9 +43,10 @@ export default AuthenticatedRoute.extend(styleBody, CurrentUserSettings, {
             // "unsaved changes" confirmation modal
             let isExternalRoute =
                 // allow sub-routes of settings.integration
-                !transition.targetName.match(/^settings\.integration\./)
+                !(transition.targetName || '').match(/^settings\.integration\./)
                 // do not allow changes in integration
-                || transition.params['settings.integration'].integration_id !== controller.integration.id;
+                // .to will be the index, so use .to.parent to get the route with the params
+                || transition.to.parent.params.integration_id !== controller.integration.id;
 
             if (isExternalRoute && !controller.integration.isDeleted && controller.integration.hasDirtyAttributes) {
                 transition.abort();
@@ -61,5 +54,11 @@ export default AuthenticatedRoute.extend(styleBody, CurrentUserSettings, {
                 return;
             }
         }
+    },
+
+    buildRouteInfoMetadata() {
+        return {
+            titleToken: 'Settings - Integrations'
+        };
     }
 });

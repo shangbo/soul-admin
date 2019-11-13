@@ -1,8 +1,9 @@
 import Controller from '@ember/controller';
+import copyTextToClipboard from 'soul-admin/utils/copy-text-to-clipboard';
 import {
     IMAGE_EXTENSIONS,
     IMAGE_MIME_TYPES
-} from 'ghost-admin/components/gh-image-uploader';
+} from 'soul-admin/components/gh-image-uploader';
 import {alias} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import {htmlSafe} from '@ember/string';
@@ -51,6 +52,8 @@ export default Controller.extend({
             ];
             return htmlSafe(styles.join('; '));
         }
+
+        return htmlSafe('');
     }),
 
     actions: {
@@ -136,29 +139,17 @@ export default Controller.extend({
     }),
 
     copyContentKey: task(function* () {
-        this._copyTextToClipboard(this.integration.contentKey.secret);
+        copyTextToClipboard(this.integration.contentKey.secret);
         yield timeout(3000);
     }),
 
     copyAdminKey: task(function* () {
-        this._copyTextToClipboard(this.integration.adminKey.secret);
+        copyTextToClipboard(this.integration.adminKey.secret);
         yield timeout(3000);
     }),
 
     copyApiUrl: task(function* () {
-        this._copyTextToClipboard(this.apiUrl);
+        copyTextToClipboard(this.apiUrl);
         yield timeout(3000);
-    }),
-
-    _copyTextToClipboard(text) {
-        let textarea = document.createElement('textarea');
-        textarea.value = text;
-        textarea.setAttribute('readonly', '');
-        textarea.style.position = 'absolute';
-        textarea.style.left = '-9999px';
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-    }
+    })
 });

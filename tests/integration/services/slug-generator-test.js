@@ -5,7 +5,7 @@ import {expect} from 'chai';
 import {setupTest} from 'ember-mocha';
 
 function stubSlugEndpoint(server, type, slug) {
-    server.get('/ghost/api/v2/admin/slugs/:type/:slug/', function (request) {
+    server.get('/ghost/api/v3/admin/slugs/:type/:slug/', function (request) {
         expect(request.params.type).to.equal(type);
         expect(request.params.slug).to.equal(slug);
 
@@ -18,9 +18,7 @@ function stubSlugEndpoint(server, type, slug) {
 }
 
 describe('Integration: Service: slug-generator', function () {
-    setupTest('service:slug-generator', {
-        integration: true
-    });
+    setupTest();
 
     let server;
 
@@ -33,7 +31,7 @@ describe('Integration: Service: slug-generator', function () {
     });
 
     it('returns empty if no slug is provided', function (done) {
-        let service = this.subject();
+        let service = this.owner.lookup('service:slug-generator');
 
         service.generateSlug('post', '').then(function (slug) {
             expect(slug).to.equal('');
@@ -45,7 +43,7 @@ describe('Integration: Service: slug-generator', function () {
         let rawSlug = 'a test post';
         stubSlugEndpoint(server, 'post', rawSlug);
 
-        let service = this.subject();
+        let service = this.owner.lookup('service:slug-generator');
 
         service.generateSlug('post', rawSlug).then(function (slug) {
             expect(slug).to.equal(dasherize(rawSlug));

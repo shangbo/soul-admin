@@ -1,5 +1,5 @@
 import EmberError from '@ember/error';
-import FeatureService, {feature} from 'ghost-admin/services/feature';
+import FeatureService, {feature} from 'soul-admin/services/feature';
 import Pretender from 'pretender';
 import wait from 'ember-test-helpers/wait';
 import {describe, it} from 'mocha';
@@ -17,11 +17,11 @@ function stubSettings(server, labs, validSave = true) {
         }
     ];
 
-    server.get('/ghost/api/v2/admin/settings/', function () {
+    server.get('/ghost/api/v3/admin/settings/', function () {
         return [200, {'Content-Type': 'application/json'}, JSON.stringify({settings})];
     });
 
-    server.put('/ghost/api/v2/admin/settings/', function (request) {
+    server.put('/ghost/api/v3/admin/settings/', function (request) {
         let statusCode = (validSave) ? 200 : 400;
         let response = (validSave) ? request.requestBody : JSON.stringify({
             errors: [{
@@ -47,11 +47,11 @@ function stubUser(server, accessibility, validSave = true) {
         }]
     }];
 
-    server.get('/ghost/api/v2/admin/users/me/', function () {
+    server.get('/ghost/api/v3/admin/users/me/', function () {
         return [200, {'Content-Type': 'application/json'}, JSON.stringify({users})];
     });
 
-    server.put('/ghost/api/v2/admin/users/1/', function (request) {
+    server.put('/ghost/api/v3/admin/users/1/', function (request) {
         let statusCode = (validSave) ? 200 : 400;
         let response = (validSave) ? request.requestBody : JSON.stringify({
             errors: [{
@@ -71,9 +71,7 @@ function addTestFlag() {
 }
 
 describe('Integration: Service: feature', function () {
-    setupTest('service:feature', {
-        integration: true
-    });
+    setupTest();
 
     let server;
 
@@ -91,7 +89,7 @@ describe('Integration: Service: feature', function () {
 
         addTestFlag();
 
-        let service = this.subject();
+        let service = this.owner.lookup('service:feature');
 
         return service.fetch().then(() => {
             expect(service.get('testFlag')).to.be.true;
@@ -105,7 +103,7 @@ describe('Integration: Service: feature', function () {
 
         addTestFlag();
 
-        let service = this.subject();
+        let service = this.owner.lookup('service:feature');
         service.get('config').set('testFlag', false);
 
         return service.fetch().then(() => {
@@ -120,7 +118,7 @@ describe('Integration: Service: feature', function () {
 
         addTestFlag();
 
-        let service = this.subject();
+        let service = this.owner.lookup('service:feature');
         service.get('config').set('testFlag', true);
 
         return service.fetch().then(() => {
@@ -135,7 +133,7 @@ describe('Integration: Service: feature', function () {
 
         addTestFlag();
 
-        let service = this.subject();
+        let service = this.owner.lookup('service:feature');
         service.get('config').set('testFlag', false);
 
         return service.fetch().then(() => {
@@ -150,7 +148,7 @@ describe('Integration: Service: feature', function () {
 
         addTestFlag();
 
-        let service = this.subject();
+        let service = this.owner.lookup('service:feature');
         service.get('config').set('testFlag', true);
 
         return service.fetch().then(() => {
@@ -165,7 +163,7 @@ describe('Integration: Service: feature', function () {
 
         addTestFlag();
 
-        let service = this.subject();
+        let service = this.owner.lookup('service:feature');
 
         return service.fetch().then(() => {
             expect(service.get('accessibility.testUserFlag')).to.be.false;
@@ -179,7 +177,7 @@ describe('Integration: Service: feature', function () {
 
         addTestFlag();
 
-        let service = this.subject();
+        let service = this.owner.lookup('service:feature');
 
         return service.fetch().then(() => {
             expect(service.get('accessibility.testUserFlag')).to.be.true;
@@ -193,7 +191,7 @@ describe('Integration: Service: feature', function () {
 
         addTestFlag();
 
-        let service = this.subject();
+        let service = this.owner.lookup('service:feature');
         service.get('config').set('testFlag', false);
 
         return service.fetch().then(() => {
@@ -216,7 +214,7 @@ describe('Integration: Service: feature', function () {
 
         addTestFlag();
 
-        let service = this.subject();
+        let service = this.owner.lookup('service:feature');
 
         return service.fetch().then(() => {
             expect(service.get('testUserFlag')).to.be.false;
@@ -238,7 +236,7 @@ describe('Integration: Service: feature', function () {
 
         addTestFlag();
 
-        let service = this.subject();
+        let service = this.owner.lookup('service:feature');
         service.get('config').set('testFlag', false);
 
         return service.fetch().then(() => {
@@ -270,7 +268,7 @@ describe('Integration: Service: feature', function () {
 
         addTestFlag();
 
-        let service = this.subject();
+        let service = this.owner.lookup('service:feature');
 
         return service.fetch().then(() => {
             expect(service.get('testUserFlag')).to.be.false;
@@ -301,7 +299,7 @@ describe('Integration: Service: feature', function () {
 
         addTestFlag();
 
-        let service = this.subject();
+        let service = this.owner.lookup('service:feature');
         service.get('config').set('testFlag', false);
 
         return service.fetch().then(() => {

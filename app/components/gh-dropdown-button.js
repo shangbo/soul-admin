@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import DropdownMixin from 'ghost-admin/mixins/dropdown-mixin';
+import DropdownMixin from 'soul-admin/mixins/dropdown-mixin';
 import {inject as service} from '@ember/service';
 
 export default Component.extend(DropdownMixin, {

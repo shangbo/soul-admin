@@ -4,7 +4,7 @@ import {get} from '@ember/object';
 import {isArray as isEmberArray} from '@ember/array';
 import {
     isVersionMismatchError
-} from 'ghost-admin/services/ajax';
+} from 'soul-admin/services/ajax';
 import {inject as service} from '@ember/service';
 import {task} from 'ember-concurrency';
 

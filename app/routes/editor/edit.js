@@ -1,4 +1,4 @@
-import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
+import AuthenticatedRoute from 'soul-admin/routes/authenticated';
 import {pluralize} from 'ember-inflector';
 
 export default AuthenticatedRoute.extend({
@@ -24,8 +24,7 @@ export default AuthenticatedRoute.extend({
         }
 
         let query = {
-            id: post_id,
-            status: 'all'
+            id: post_id
         };
 
         return this.store.query(modelName, query)
@@ -39,7 +38,7 @@ export default AuthenticatedRoute.extend({
         this._super(...arguments);
 
         return this.get('session.user').then((user) => {
-            let returnRoute = `${pluralize(post.constructor.modelName)}.index`;
+            let returnRoute = pluralize(post.constructor.modelName);
 
             if (user.get('isAuthorOrContributor') && !post.isAuthoredByUser(user)) {
                 return this.replaceWith(returnRoute);

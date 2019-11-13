@@ -1,8 +1,8 @@
 import Controller from '@ember/controller';
-import PostModel from 'ghost-admin/models/post';
-import boundOneWay from 'ghost-admin/utils/bound-one-way';
-import config from 'ghost-admin/config/environment';
-import isNumber from 'ghost-admin/utils/isNumber';
+import PostModel from 'soul-admin/models/post';
+import boundOneWay from 'soul-admin/utils/bound-one-way';
+import config from 'soul-admin/config/environment';
+import isNumber from 'soul-admin/utils/isNumber';
 import {alias, mapBy} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import {inject as controller} from '@ember/controller';
@@ -10,7 +10,7 @@ import {htmlSafe} from '@ember/string';
 import {isBlank} from '@ember/utils';
 import {isArray as isEmberArray} from '@ember/array';
 import {isInvalidError} from 'ember-ajax/errors';
-import {isVersionMismatchError} from 'ghost-admin/services/ajax';
+import {isVersionMismatchError} from 'soul-admin/services/ajax';
 import {inject as service} from '@ember/service';
 import {task, taskGroup, timeout} from 'ember-concurrency';
 
@@ -342,13 +342,13 @@ export default Controller.extend({
         }
 
         try {
-            let post = yield this.post.save(options);
+            let post = yield this._savePost.perform(options);
+
+            post.set('statusScratch', null);
 
             if (!options.silent) {
                 this._showSaveNotification(prevStatus, post.get('status'), isNew ? true : false);
             }
-
-            this.post.set('statusScratch', null);
 
             // redirect to edit route if saving a new record
             if (isNew && post.get('id')) {
@@ -432,14 +432,14 @@ export default Controller.extend({
             return;
         }
 
-        return yield this.post.save();
+        return yield this._savePost.perform();
     }).group('saveTasks'),
 
     // used in the PSM so that saves are sequential and don't trigger collision
     // detection errors
     savePost: task(function* () {
         try {
-            return yield this.post.save();
+            return yield this._savePost.perform();
         } catch (error) {
             if (error) {
                 let status = this.get('post.status');
@@ -449,6 +449,37 @@ export default Controller.extend({
             throw error;
         }
     }).group('saveTasks'),
+
+    // convenience method for saving the post and performing post-save cleanup
+    _savePost: task(function* (options) {
+        let {post} = this;
+
+        yield post.save(options);
+
+        // remove any unsaved tags
+        // NOTE: `updateTags` changes `hasDirtyAttributes => true`.
+        // For a saved post it would otherwise be false.
+        post.updateTags();
+        this._previousTagNames = this._tagNames;
+
+        // update the scratch property if it's `null` and we get a blank mobiledoc
+        // back from the API - prevents "unsaved changes" modal on new+blank posts
+        if (!post.scratch) {
+            post.set('scratch', JSON.parse(JSON.stringify(post.get('mobiledoc'))));
+        }
+
+        // if the two "scratch" properties (title and content) match the post,
+        // then it's ok to set hasDirtyAttributes to false
+        // TODO: why is this necessary?
+        let titlesMatch = post.get('titleScratch') === post.get('title');
+        let bodiesMatch = JSON.stringify(post.get('scratch')) === JSON.stringify(post.get('mobiledoc'));
+
+        if (titlesMatch && bodiesMatch) {
+            this.set('hasDirtyAttributes', false);
+        }
+
+        return post;
+    }),
 
     saveTitle: task(function* () {
         let post = this.post;
@@ -472,7 +503,7 @@ export default Controller.extend({
             yield this.autosave.perform();
         }
 
-        this.send('updateDocumentTitle');
+        this.ui.updateDocumentTitle();
     }),
 
     generateSlug: task(function* () {
@@ -525,7 +556,6 @@ export default Controller.extend({
         post.set('scratch', post.get('mobiledoc'));
 
         this._previousTagNames = this._tagNames;
-        this._attachModelHooks();
 
         // triggered any time the admin tab is closed, we need to use a native
         // dialog here instead of our custom modal
@@ -607,9 +637,6 @@ export default Controller.extend({
             } else {
                 post.rollbackAttributes();
             }
-
-            // remove the create/update event handlers that were added to the post
-            this._detachModelHooks();
         }
 
         this._previousTagNames = [];
@@ -708,46 +735,6 @@ export default Controller.extend({
         return post.get('hasDirtyAttributes');
     },
 
-    // post.save() is called in multiple places, rather than remembering to
-    // add a .then in every instance we use model hooks to update our local
-    // values used for `hasDirtyAttributes`
-    _attachModelHooks() {
-        let post = this.post;
-        if (post) {
-            post.on('didCreate', this, this._postSaved);
-            post.on('didUpdate', this, this._postSaved);
-        }
-    },
-
-    _detachModelHooks() {
-        let post = this.post;
-        if (post) {
-            post.off('didCreate', this, this._postSaved);
-            post.off('didUpdate', this, this._postSaved);
-        }
-    },
-
-    _postSaved() {
-        let post = this.post;
-
-        // remove any unsaved tags
-        // NOTE: `updateTags` changes `hasDirtyAttributes => true`.
-        // For a saved post it would otherwise be false.
-        post.updateTags();
-
-        this._previousTagNames = this._tagNames;
-
-        // if the two "scratch" properties (title and content) match the post,
-        // then it's ok to set hasDirtyAttributes to false
-        // TODO: why is this necessary?
-        let titlesMatch = post.get('titleScratch') === post.get('title');
-        let bodiesMatch = JSON.stringify(post.get('scratch')) === JSON.stringify(post.get('mobiledoc'));
-
-        if (titlesMatch && bodiesMatch) {
-            this.set('hasDirtyAttributes', false);
-        }
-    },
-
     _showSaveNotification(prevStatus, status, delay) {
         let message = messageMap.success.post[prevStatus][status];
         let notifications = this.notifications;
@@ -772,7 +759,6 @@ export default Controller.extend({
         let errorMessage;
 
         function isString(str) {
-            /* global toString */
             return toString.call(str) === '[object String]';
         }
 

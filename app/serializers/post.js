@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import ApplicationSerializer from 'ghost-admin/serializers/application';
+import ApplicationSerializer from 'soul-admin/serializers/application';
 import EmbeddedRecordsMixin from 'ember-data/serializers/embedded-records-mixin';
 import {pluralize} from 'ember-inflector';
 
@@ -40,6 +40,10 @@ export default ApplicationSerializer.extend(EmbeddedRecordsMixin, {
         delete json.url;
         // Deprecated property (replaced with data.authors)
         delete json.author;
+
+        if (json.visibility === null) {
+            delete json.visibility;
+        }
 
         return json;
     }

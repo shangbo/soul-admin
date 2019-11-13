@@ -1,4 +1,4 @@
-import {Factory, faker} from 'ember-cli-mirage';
+import {Factory} from 'ember-cli-mirage';
 import {isEmpty} from '@ember/utils';
 
 export default Factory.extend({
@@ -13,6 +13,7 @@ export default Factory.extend({
     featureImage(i) { return `/content/images/2015/10/post-${i}.jpg`; },
     html(i) { return `<p>HTML for post ${i}.</p>`; },
     locale: null,
+    visibility: 'public',
     metaDescription(i) { return `Meta description for post ${i}.`; },
     metaTitle(i) { return `Meta Title for post ${i}`; },
     ogDescription: null,
@@ -22,7 +23,10 @@ export default Factory.extend({
     plaintext(i) { return `Plaintext for post ${i}.`; },
     publishedAt: '2015-12-19T16:25:07.000Z',
     publishedBy: 1,
-    status(i) { return faker.list.cycle('draft', 'published', 'scheduled')(i); },
+    status(i) {
+        let statuses = ['draft', 'published', 'scheduled'];
+        return statuses[i % statuses.length];
+    },
     title(i) { return `Post ${i}`; },
     twitterDescription: null,
     twitterImage: null,

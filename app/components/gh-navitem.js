@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import ValidationState from 'ghost-admin/mixins/validation-state';
+import ValidationState from 'soul-admin/mixins/validation-state';
 import {computed} from '@ember/object';
 import {readOnly} from '@ember/object/computed';
 import {run} from '@ember/runloop';
@@ -19,9 +19,7 @@ export default Component.extend(ValidationState, {
     errors: readOnly('navItem.errors'),
 
     errorClass: computed('hasError', function () {
-        if (this.hasError) {
-            return 'gh-blognav-item--error';
-        }
+        return this.hasError ? 'gh-blognav-item--error' : '';
     }),
 
     actions: {

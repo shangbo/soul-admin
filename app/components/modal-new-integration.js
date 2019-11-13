@@ -1,4 +1,4 @@
-import ModalComponent from 'ghost-admin/components/modal-base';
+import ModalComponent from 'soul-admin/components/modal-base';
 import {alias} from '@ember/object/computed';
 import {A as emberA} from '@ember/array';
 import {isInvalidError} from 'ember-ajax/errors';

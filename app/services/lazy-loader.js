@@ -1,6 +1,6 @@
 import RSVP from 'rsvp';
 import Service, {inject as service} from '@ember/service';
-import config from 'ghost-admin/config/environment';
+import config from 'soul-admin/config/environment';
 
 export default Service.extend({
     ajax: service(),
@@ -65,6 +65,7 @@ export default Service.extend({
             link.rel = alternate ? 'alternate stylesheet' : 'stylesheet';
             link.href = `${this.ghostPaths.adminRoot}${url}`;
             link.onload = () => {
+                link.onload = null;
                 if (alternate) {
                     // If stylesheet is alternate and we disable the stylesheet before injecting into the DOM,
                     // the onload handler never gets called. Thus, we should disable the link after it has finished loading

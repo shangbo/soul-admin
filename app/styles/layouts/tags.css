@@ -1,127 +1,141 @@
-/* Tag Management /ghost/settings/tags/
+/* Tag list
 /* ---------------------------------------------------------- */
-
-
-/* Tag
-/* ---------------------------------------------------------- */
-
-.settings-tag {
-    position: relative;
-    display: block;
-    padding: 0 45px 0 0;
-    border-bottom: var(--lightgrey) 1px solid;
+a.gh-tag-list-posts-count:hover {
+    color: color-mod(var(--blue) l(-25%) s(+15%));
 }
 
-.settings-tag .tag-edit-button {
-    display: block;
-    padding: 20px;
-    width: calc(100% + 45px);
-    text-align: left;
-}
-
-.settings-tag .tag-edit-button.active {
-    border-left: 3px solid;
-}
-
-.settings-tag .label {
-    display: inline-block;
-    overflow: hidden;
+textarea.gh-tag-details-textarea {
     max-width: 100%;
-    vertical-align: middle;
+}
+
+.gh-tags-placeholder {
+    width: 118px;
+    margin: -30px 0 15px;
+}
+
+.gh-tag-list-slug {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gh-tag-list-description {
+    max-width: 320px;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.settings-tag .label-alt {
-    text-transform: uppercase;
+.tags-view {
+    max-width: 1220px;
+    margin: 0 auto;
 }
 
-.settings-tag .tag-title {
-    color: var(--darkgrey);
-    font-size: 16px;
-    font-weight: normal;
+/* Mobile style of tag list */
+@media (max-width: 1000px) {
+    .gh-tags-list-item {
+        display: flex;
+        position: relative;
+        flex-wrap: wrap;
+        border-bottom: 1px solid var(--lightgrey);
+        margin: 0;
+    }
+
+    .gh-tags-list-item:nth-of-type(2) {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    .gh-tags-list-item .gh-list-data {
+        border-top: none !important;
+    }
+
+    .gh-tags-list-item:hover {
+        background: var(--whitegrey-l2);
+    }
+
+    .gh-tags-list-item:hover .gh-list-data {
+        background: none !important;
+    }
+
+    .gh-tag-list-title {
+        display: block;
+        flex: 1 1 100%;
+        padding-bottom: 0;
+    }
+
+    .gh-tag-list-slug {
+        display: inline-block;
+        width: unset;
+        padding: 2px 0 20px 16px;
+    }
+
+    .gh-tag-list-posts-count {
+        display: inline-block;
+        flex: 1 1 auto;
+        width: unset;
+        padding: 2px 0 20px 0;
+    }
+
+    .gh-tag-list-slug:after {
+        content: "\2022";
+        display: inline-block;
+        margin-right: 4px;
+        color: var(--midgrey-l2);
+    }
+
+    .gh-tag-list-chevron {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
 }
 
-.settings-tag .tag-description {
-    margin: 0;
-    color: var(--midgrey);
-    word-wrap: break-word;
-    font-size: 13px;
-}
+@media (max-width: 450px) {
+    .tags-header {
+        justify-content: flex-end;
+        min-height: 120px;
+    }
 
-.settings-tag .tags-count {
-    position: absolute;
-    top: 20px;
-    right: 12px;
-    color: var(--midgrey);
-    font-size: 16px;
-}
+    .tags-header .gh-canvas-title {
+        position: absolute;
+        top: 29px;
+        left: 21px;
+    }
 
-/* Tag List (Left pane)
-/* ---------------------------------------------------------- */
-
-.tag-list {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    overflow: auto;
-    max-width: calc(100% - 350px);
-    width: 66%;
-    border-right: var(--lightgrey) 1px solid;
-}
-
-@media (max-width: 600px) {
-    .tag-list {
-        max-width: 100%;
+    .tags-header .view-actions {
+        flex-direction: column;
+        align-items: flex-end;
+        margin-top: 18px;
+        overflow-y: hidden;
         width: 100%;
     }
 
-    .settings-tag .tag-edit-button.active {
-        border-left: none;
+    .tags-header .view-actions .gh-contentfilter {
+        order: 2;
+        margin: 10px 0 -20px;
+        padding: 6px 0 26px;
+        max-width: calc(100vw - 10px);
+        overflow-x: auto;
+        align-self: stretch;
+    }
+
+    .tags-header .view-actions .gh-contentfilter button {
+        flex: 1 1 50%;
+    }
+
+    .gh-tag-list-description {
+        max-width: 200px;
     }
 }
 
-/* Tag Settings (Right pane)
+/* Tag details
 /* ---------------------------------------------------------- */
 
-.tag-settings {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    min-width: 350px;
-    width: 34%;
-    border: none;
-    transform: none;
-}
-
-.tag-settings .no-posts {
-    padding: 1em;
-}
-
-.tag-settings .no-posts h3 {
-    text-align: center;
-}
-
-.tag-settings .settings-menu-pane {
-    transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
-}
-
-@media (max-width: 600px) {
-    .tag-settings {
-        min-width: 0;
-        width: 100%;
-        transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
-        transform: translate3d(100%, 0px, 0px);
-
-        transform-style: preserve-3d;
-    }
-
-    .tag-settings-in {
-        transform: translate3d(0px, 0px, 0px);
-    }
+.gh-tag-image-uploader .gh-image-uploader {
+    margin: 4px 0 0;
+    border: 1px solid var(--lightgrey);
+    min-height: 147px;
 }

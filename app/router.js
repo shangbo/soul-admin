@@ -1,14 +1,11 @@
 import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
-import documentTitle from 'ghost-admin/utils/document-title';
-import ghostPaths from 'ghost-admin/utils/ghost-paths';
+import ghostPaths from 'soul-admin/utils/ghost-paths';
 
 const Router = EmberRouter.extend({
     location: config.locationType, // use HTML5 History API instead of hash-tag based URLs
     rootURL: ghostPaths().adminRoot // admin interface lives under sub-directory /ghost
 });
-
-documentTitle();
 
 Router.map(function () {
     this.route('home', {path: '/'});
@@ -26,8 +23,8 @@ Router.map(function () {
     this.route('about');
     this.route('site');
 
-    this.route('posts', function () {});
-    this.route('pages', function () {});
+    this.route('posts');
+    this.route('pages');
 
     this.route('editor', function () {
         this.route('new', {path: ':type'});
@@ -38,11 +35,12 @@ Router.map(function () {
         this.route('user', {path: ':user_slug'});
     });
 
-    this.route('settings.general', {path: '/settings/general'});
-    this.route('settings.tags', {path: '/settings/tags'}, function () {
+    this.route('tags', function () {
         this.route('tag', {path: ':tag_slug'});
         this.route('new');
     });
+
+    this.route('settings.general', {path: '/settings/general'});
     this.route('settings.labs', {path: '/settings/labs'});
     this.route('settings.code-injection', {path: '/settings/code-injection'});
     this.route('settings.design', {path: '/settings/design'}, function () {
@@ -60,13 +58,10 @@ Router.map(function () {
     this.route('settings.integrations.unsplash', {path: '/settings/integrations/unsplash'});
     this.route('settings.integrations.zapier', {path: '/settings/integrations/zapier'});
 
-    this.route('members');
-    this.route('member', {path: '/members/:member_id'});
-
-    this.route('subscribers', function () {
-        this.route('new');
+    this.route('members', function () {
         this.route('import');
     });
+    this.route('member', {path: '/members/:member_id'});
 
     this.route('error404', {path: '/*path'});
 });

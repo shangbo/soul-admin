@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import SlackObject from 'ghost-admin/models/slack-integration';
+import SlackObject from 'soul-admin/models/slack-integration';
 import Transform from 'ember-data/transform';
 import {isArray as isEmberArray} from '@ember/array';
 import {isEmpty} from '@ember/utils';

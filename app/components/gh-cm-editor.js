@@ -1,6 +1,6 @@
 /* global CodeMirror */
 import Component from '@ember/component';
-import boundOneWay from 'ghost-admin/utils/bound-one-way';
+import boundOneWay from 'soul-admin/utils/bound-one-way';
 import {assign} from '@ember/polyfills';
 import {bind, once, scheduleOnce} from '@ember/runloop';
 import {inject as service} from '@ember/service';
@@ -11,6 +11,7 @@ const CmEditorComponent = Component.extend({
 
     classNameBindings: ['isFocused:focus'],
 
+    textareaClass: '',
     isFocused: false,
 
     // options for the editor
@@ -18,8 +19,8 @@ const CmEditorComponent = Component.extend({
     indentUnit: 4,
     lineNumbers: true,
     lineWrapping: false,
-    mode: 'python',
-    theme: 'material',
+    mode: 'htmlmixed',
+    theme: 'xq-light',
 
     _editor: null, // reference to CodeMirror editor
 
@@ -33,6 +34,11 @@ const CmEditorComponent = Component.extend({
         if (this._value === null || undefined) {
             this.set('_value', '');
         }
+
+        if (this.mode !== this._lastMode && this._editor) {
+            this._editor.setOption('mode', this.mode);
+        }
+        this._lastMode = this.mode;
     },
 
     didInsertElement() {
@@ -62,15 +68,14 @@ const CmEditorComponent = Component.extend({
     initCodeMirror: task(function* () {
         let loader = this.lazyLoader;
         yield loader.loadScript('codemirror', 'assets/codemirror/codemirror.js');
-        yield loader.loadStyle('codemirror', 'assets/codemirror/codemirror-style.css'); 
-        
+
         scheduleOnce('afterRender', this, this._initCodeMirror);
     }),
 
     _initCodeMirror() {
         let options = this.getProperties('lineNumbers', 'lineWrapping', 'indentUnit', 'mode', 'theme', 'autofocus');
         assign(options, {value: this._value});
-        console.log(options);
+
         let textarea = this.element.querySelector('textarea');
         if (textarea && textarea === document.activeElement) {
             options.autofocus = true;

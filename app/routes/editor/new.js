@@ -1,4 +1,4 @@
-import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
+import AuthenticatedRoute from 'soul-admin/routes/authenticated';
 
 export default AuthenticatedRoute.extend({
     model(params, transition) {
@@ -19,5 +19,11 @@ export default AuthenticatedRoute.extend({
     setupController(controller, newPost) {
         let editor = this.controllerFor('editor');
         editor.setPost(newPost);
+    },
+
+    buildRouteInfoMetadata() {
+        return {
+            mainClasses: ['editor-new']
+        };
     }
 });

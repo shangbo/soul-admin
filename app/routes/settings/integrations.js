@@ -1,13 +1,9 @@
-import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
-import CurrentUserSettings from 'ghost-admin/mixins/current-user-settings';
-import styleBody from 'ghost-admin/mixins/style-body';
+import AuthenticatedRoute from 'soul-admin/routes/authenticated';
+import CurrentUserSettings from 'soul-admin/mixins/current-user-settings';
 import {inject as service} from '@ember/service';
 
-export default AuthenticatedRoute.extend(styleBody, CurrentUserSettings, {
+export default AuthenticatedRoute.extend(CurrentUserSettings, {
     settings: service(),
-
-    titleToken: 'Settings - Integrations',
-    classNames: ['settings-view-integrations'],
 
     beforeModel() {
         this._super(...arguments);
@@ -20,5 +16,11 @@ export default AuthenticatedRoute.extend(styleBody, CurrentUserSettings, {
         // kick off the background fetch of integrations so that we can
         // show the screen immediately
         controller.fetchIntegrations.perform();
+    },
+
+    buildRouteInfoMetadata() {
+        return {
+            titleToken: 'Settings - Integrations'
+        };
     }
 });

@@ -1,8 +1,9 @@
-import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
-import styleBody from 'ghost-admin/mixins/style-body';
+import AuthenticatedRoute from 'soul-admin/routes/authenticated';
 
-export default AuthenticatedRoute.extend(styleBody, {
-    titleToken: 'About',
-
-    classNames: ['view-about']
+export default AuthenticatedRoute.extend({
+    buildRouteInfoMetadata() {
+        return {
+            titleToken: 'About'
+        };
+    }
 });

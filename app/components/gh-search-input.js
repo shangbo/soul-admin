@@ -1,4 +1,3 @@
-/* global key */
 /* eslint-disable camelcase */
 import Component from '@ember/component';
 import RSVP from 'rsvp';
@@ -22,16 +21,18 @@ export function computedGroup(category) {
 }
 
 export default Component.extend({
-    store: service('store'),
-    router: service('router'),
     ajax: service(),
     notifications: service(),
+    router: service(),
+    store: service(),
 
     content: null,
     contentExpiresAt: false,
     contentExpiry: 30000,
     currentSearch: '',
     selection: null,
+
+    onSelected() {},
 
     posts: computedGroup('Posts'),
     pages: computedGroup('Pages'),
@@ -65,11 +66,24 @@ export default Component.extend({
         this.content = [];
     },
 
+    didRender() {
+        this._super(...arguments);
+
+        // force the search box to be focused at all times. Fixes disappearing
+        // caret when pressing Escape
+        let input = this.element.querySelector('input');
+        if (input) {
+            input.focus();
+        }
+    },
+
     actions: {
         openSelected(selected) {
             if (!selected) {
                 return;
             }
+
+            this.onSelected(selected);
 
             if (selected.category === 'Posts') {
                 let id = selected.id.replace('post.', '');
@@ -88,16 +102,8 @@ export default Component.extend({
 
             if (selected.category === 'Tags') {
                 let id = selected.id.replace('tag.', '');
-                this.router.transitionTo('settings.tags.tag', id);
+                this.router.transitionTo('tags.tag', id);
             }
-        },
-
-        onFocus() {
-            this._setKeymasterScope();
-        },
-
-        onBlur() {
-            this._resetKeymasterScope();
         },
 
         search(term) {
@@ -155,7 +161,7 @@ export default Component.extend({
     _loadPosts() {
         let store = this.store;
         let postsUrl = `${store.adapterFor('post').urlForQuery({}, 'post')}/`;
-        let postsQuery = {fields: 'id,title,page', limit: 'all', status: 'all'};
+        let postsQuery = {fields: 'id,title,page', limit: 'all'};
         let content = this.content;
 
         return this.ajax.request(postsUrl, {data: postsQuery}).then((posts) => {
@@ -172,7 +178,7 @@ export default Component.extend({
     _loadPages() {
         let store = this.store;
         let pagesUrl = `${store.adapterFor('page').urlForQuery({}, 'page')}/`;
-        let pagesQuery = {fields: 'id,title,page', limit: 'all', status: 'all'};
+        let pagesQuery = {fields: 'id,title,page', limit: 'all'};
         let content = this.content;
 
         return this.ajax.request(pagesUrl, {data: pagesQuery}).then((pages) => {
@@ -218,18 +224,5 @@ export default Component.extend({
         }).catch((error) => {
             this.notifications.showAPIError(error, {key: 'search.loadTags.error'});
         });
-    },
-
-    _setKeymasterScope() {
-        key.setScope('search-input');
-    },
-
-    _resetKeymasterScope() {
-        key.setScope('default');
-    },
-
-    willDestroy() {
-        this._super(...arguments);
-        this._resetKeymasterScope();
     }
 });

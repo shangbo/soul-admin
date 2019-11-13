@@ -1,4 +1,4 @@
-import ApplicationSerializer from 'ghost-admin/serializers/application';
+import ApplicationSerializer from 'soul-admin/serializers/application';
 import {pluralize} from 'ember-inflector';
 
 export default ApplicationSerializer.extend({

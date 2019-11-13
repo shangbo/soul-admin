@@ -3,21 +3,21 @@
 
 module.exports = function (environment) {
     let ENV = {
-        modulePrefix: 'ghost-admin',
+        modulePrefix: 'soul-admin',
         environment,
         rootURL: '/',
         locationType: 'trailing-hash',
         EmberENV: {
             FEATURES: {
                 // Here you can enable experimental features on an ember canary build
-                // e.g. 'with-controller': true
+                // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true
             },
             // @TODO verify that String/Function need to be enabled
             EXTEND_PROTOTYPES: {
                 Date: false,
                 Array: true,
                 String: true,
-                Function: true
+                Function: false
             }
         },
 

@@ -1,15 +1,11 @@
-import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
-import CurrentUserSettings from 'ghost-admin/mixins/current-user-settings';
+import AuthenticatedRoute from 'soul-admin/routes/authenticated';
+import CurrentUserSettings from 'soul-admin/mixins/current-user-settings';
 import RSVP from 'rsvp';
-import styleBody from 'ghost-admin/mixins/style-body';
 import {inject as service} from '@ember/service';
 
-export default AuthenticatedRoute.extend(styleBody, CurrentUserSettings, {
+export default AuthenticatedRoute.extend(CurrentUserSettings, {
     config: service(),
     settings: service(),
-
-    titleToken: 'Settings - General',
-    classNames: ['settings-view-general'],
 
     beforeModel() {
         this._super(...arguments);
@@ -52,5 +48,11 @@ export default AuthenticatedRoute.extend(styleBody, CurrentUserSettings, {
             }
         }
 
+    },
+
+    buildRouteInfoMetadata() {
+        return {
+            titleToken: 'Settings - General'
+        };
     }
 });

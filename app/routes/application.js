@@ -2,9 +2,9 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 import AuthConfiguration from 'ember-simple-auth/configuration';
 import RSVP from 'rsvp';
 import Route from '@ember/routing/route';
-import ShortcutsRoute from 'ghost-admin/mixins/shortcuts-route';
-import ctrlOrCmd from 'ghost-admin/utils/ctrl-or-cmd';
-import windowProxy from 'ghost-admin/utils/window-proxy';
+import ShortcutsRoute from 'soul-admin/mixins/shortcuts-route';
+import ctrlOrCmd from 'soul-admin/utils/ctrl-or-cmd';
+import windowProxy from 'soul-admin/utils/window-proxy';
 import {
     isAjaxError,
     isNotFoundError,
@@ -14,7 +14,7 @@ import {isArray as isEmberArray} from '@ember/array';
 import {
     isMaintenanceError,
     isVersionMismatchError
-} from 'ghost-admin/services/ajax';
+} from 'soul-admin/services/ajax';
 import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 
@@ -37,6 +37,7 @@ export default Route.extend(ApplicationRouteMixin, ShortcutsRoute, {
     settings: service(),
     tour: service(),
     ui: service(),
+    whatsNew: service(),
 
     shortcuts,
 
@@ -60,20 +61,21 @@ export default Route.extend(ApplicationRouteMixin, ShortcutsRoute, {
             this.set('appLoadTransition', transition);
             transition.send('loadServerNotifications');
 
-            let configPromise = this.config.fetchAuthenticated();
-            let featurePromise = this.feature.fetch();
-            let settingsPromise = this.settings.fetch();
-            let tourPromise = this.tour.fetchViewed();
-
             // return the feature/settings load promises so that we block until
             // they are loaded to enable synchronous access everywhere
             return RSVP.all([
-                configPromise,
-                featurePromise,
-                settingsPromise,
-                tourPromise
+                this.config.fetchAuthenticated(),
+                this.feature.fetch(),
+                this.settings.fetch(),
+                this.tour.fetchViewed()
             ]).then((results) => {
                 this._appLoaded = true;
+
+                // kick off background update of "whats new"
+                // - we don't want to block the router for this
+                // - we need the user details to know what the user has seen
+                this.whatsNew.fetchLatest.perform();
+
                 return results;
             });
         }
@@ -103,7 +105,7 @@ export default Route.extend(ApplicationRouteMixin, ShortcutsRoute, {
         loadServerNotifications(isDelayed) {
             if (this.get('session.isAuthenticated')) {
                 this.get('session.user').then((user) => {
-                    if (!user.get('isAuthorOrContributor') && !user.get('isEditor')) {
+                    if (!user.get('isAuthorOrContributor')) {
                         this.store.findAll('notification', {reload: true}).then((serverNotifications) => {
                             serverNotifications.forEach((notification) => {
                                 if (notification.get('top') || notification.get('custom')) {
@@ -183,10 +185,6 @@ export default Route.extend(ApplicationRouteMixin, ShortcutsRoute, {
             // fallback to 500 error page
             return true;
         }
-    },
-
-    title(tokens) {
-        return `${tokens.join(' - ')} - ${this.get('config.blogTitle')}`;
     },
 
     sessionAuthenticated() {

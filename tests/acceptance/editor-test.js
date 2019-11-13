@@ -1,6 +1,5 @@
 import Mirage from 'ember-cli-mirage';
 import moment from 'moment';
-import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import sinon from 'sinon';
 import {authenticateSession, invalidateSession} from 'ember-simple-auth/test-support';
 import {beforeEach, describe, it} from 'mocha';
@@ -9,6 +8,7 @@ import {datepickerSelect} from 'ember-power-datepicker/test-support';
 import {expect} from 'chai';
 import {selectChoose} from 'ember-power-select/test-support';
 import {setupApplicationTest} from 'ember-mocha';
+import {setupMirage} from 'ember-cli-mirage/test-support';
 import {visit} from '../helpers/visit';
 
 // TODO: update ember-power-datepicker to expose modern test helpers
@@ -158,7 +158,7 @@ describe('Acceptance: Editor', function () {
             expect(
                 find('[data-test-date-time-picker-date-input]').value,
                 'PSM date value after closing with invalid date'
-            ).to.equal(moment(post1.publishedAt).tz('Etc/UTC').format('MM/DD/YYYY'));
+            ).to.equal(moment(post1.publishedAt).tz('Etc/UTC').format('YYYY-MM-DD'));
 
             expect(
                 find('[data-test-date-time-picker-time-input]').value,
@@ -238,7 +238,7 @@ describe('Acceptance: Editor', function () {
             await visit('/editor/post/2');
 
             expect(currentURL(), 'currentURL').to.equal('/editor/post/2');
-            expect(find('[data-test-date-time-picker-date-input]').value).to.equal('12/19/2015');
+            expect(find('[data-test-date-time-picker-date-input]').value).to.equal('2015-12-19');
             expect(find('[data-test-date-time-picker-time-input]').value).to.equal('16:25');
 
             // saves the post with a new date
@@ -288,7 +288,7 @@ describe('Acceptance: Editor', function () {
             expect(
                 find('[data-test-date-time-picker-date-input]').value,
                 'date after timezone change'
-            ).to.equal('05/10/2016');
+            ).to.equal('2016-05-10');
 
             expect(
                 find('[data-test-date-time-picker-time-input]').value,
@@ -523,7 +523,7 @@ describe('Acceptance: Editor', function () {
         it('renders first countdown notification before scheduled time', async function () {
             let clock = sinon.useFakeTimers(moment().valueOf());
             let compareDate = moment().tz('Etc/UTC').add(4, 'minutes');
-            let compareDateString = compareDate.format('MM/DD/YYYY');
+            let compareDateString = compareDate.format('YYYY-MM-DD');
             let compareTimeString = compareDate.format('HH:mm');
             this.server.create('post', {publishedAt: moment.utc().add(4, 'minutes'), status: 'scheduled', authors: [author]});
             this.server.create('setting', {activeTimezone: 'Europe/Dublin'});

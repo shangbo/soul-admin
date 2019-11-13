@@ -1,5 +1,5 @@
-import NavItem from 'ghost-admin/models/navigation-item';
-import validator from 'ghost-admin/validators/nav-item';
+import NavItem from 'soul-admin/models/navigation-item';
+import validator from 'soul-admin/validators/nav-item';
 import {
     describe,
     it

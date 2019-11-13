@@ -4,16 +4,17 @@ import {expect} from 'chai';
 import {setupTest} from 'ember-mocha';
 
 describe('Unit: Service: event-bus', function () {
-    setupTest('service:event-bus', {});
+    setupTest();
+
     it('works', function () {
-        let service = this.subject();
+        let service = this.owner.lookup('service:event-bus');
         let eventHandler = sinon.spy();
 
-        service.subscribe('test-event', eventHandler);
+        service.subscribe('test-event', this, eventHandler);
 
         service.publish('test-event', 'test');
 
-        service.unsubscribe('test-event', eventHandler);
+        service.unsubscribe('test-event', this, eventHandler);
 
         service.publish('test-event', 'test two');
 

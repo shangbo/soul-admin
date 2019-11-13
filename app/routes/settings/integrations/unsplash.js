@@ -1,15 +1,11 @@
-import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
+import AuthenticatedRoute from 'soul-admin/routes/authenticated';
 import CurrentUserSettings from '../../../mixins/current-user-settings';
-import UnsplashObject from 'ghost-admin/models/unsplash-integration';
-import styleBody from 'ghost-admin/mixins/style-body';
+import UnsplashObject from 'soul-admin/models/unsplash-integration';
 import {inject as service} from '@ember/service';
 
-export default AuthenticatedRoute.extend(styleBody, CurrentUserSettings, {
+export default AuthenticatedRoute.extend(CurrentUserSettings, {
     config: service(),
     settings: service(),
-
-    titleToken: 'Unsplash',
-    classNames: ['settings-view-integrations-unsplash'],
 
     // reload settings to ensure we have latest values and pre-configure
     // Unsplash to be active if the server doesn't have any unsplash setting
@@ -53,5 +49,11 @@ export default AuthenticatedRoute.extend(styleBody, CurrentUserSettings, {
                 return;
             }
         }
+    },
+
+    buildRouteInfoMetadata() {
+        return {
+            titleToken: 'Unsplash'
+        };
     }
 });

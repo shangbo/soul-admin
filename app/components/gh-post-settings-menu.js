@@ -1,7 +1,7 @@
 import Component from '@ember/component';
-import SettingsMenuMixin from 'ghost-admin/mixins/settings-menu-component';
-import boundOneWay from 'ghost-admin/utils/bound-one-way';
-import formatMarkdown from 'ghost-admin/utils/format-markdown';
+import SettingsMenuMixin from 'soul-admin/mixins/settings-menu-component';
+import boundOneWay from 'soul-admin/utils/bound-one-way';
+import formatMarkdown from 'soul-admin/utils/format-markdown';
 import moment from 'moment';
 import {alias, or} from '@ember/object/computed';
 import {computed} from '@ember/object';
@@ -12,6 +12,7 @@ import {task, timeout} from 'ember-concurrency';
 const PSM_ANIMATION_LENGTH = 400;
 
 export default Component.extend(SettingsMenuMixin, {
+    feature: service(),
     store: service(),
     config: service(),
     ghostPaths: service(),
@@ -44,6 +45,8 @@ export default Component.extend(SettingsMenuMixin, {
     twitterDescription: or('twitterDescriptionScratch', 'customExcerptScratch', 'seoDescription'),
     twitterImage: or('post.twitterImage', 'post.featureImage'),
     twitterTitle: or('twitterTitleScratch', 'seoTitle'),
+
+    showVisibilityInput: or('session.user.isOwner', 'session.user.isAdmin', 'session.user.isEditor'),
 
     seoTitle: computed('metaTitleScratch', 'post.titleScratch', function () {
         return this.metaTitleScratch || this.post.titleScratch || '(Untitled)';

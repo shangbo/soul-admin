@@ -1,6 +1,6 @@
 /* eslint-disable ghost/ember/alias-model-in-controller */
 import Controller from '@ember/controller';
-import boundOneWay from 'ghost-admin/utils/bound-one-way';
+import boundOneWay from 'soul-admin/utils/bound-one-way';
 import {empty} from '@ember/object/computed';
 import {isInvalidError} from 'ember-ajax/errors';
 import {inject as service} from '@ember/service';

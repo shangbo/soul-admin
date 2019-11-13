@@ -1,13 +1,11 @@
 import Pretender from 'pretender';
-import config from 'ghost-admin/config/environment';
+import config from 'soul-admin/config/environment';
 import {describe, it} from 'mocha';
 import {expect} from 'chai';
 import {setupTest} from 'ember-mocha';
 
 describe('Integration: Service: store', function () {
-    setupTest('service:store', {
-        integration: true
-    });
+    setupTest();
 
     let server;
 
@@ -21,9 +19,9 @@ describe('Integration: Service: store', function () {
 
     it('adds Ghost version header to requests', function (done) {
         let {version} = config.APP;
-        let store = this.subject();
+        let store = this.owner.lookup('service:store');
 
-        server.get('/ghost/api/v2/admin/posts/1/', function () {
+        server.get('/ghost/api/v3/admin/posts/1/', function () {
             return [
                 404,
                 {'Content-Type': 'application/json'},

@@ -4,14 +4,12 @@ import {expect} from 'chai';
 import {setupTest} from 'ember-mocha';
 
 describe('Integration: Adapter: tag', function () {
-    setupTest('adapter:tag', {
-        integration: true
-    });
+    setupTest();
 
     let server, store;
 
     beforeEach(function () {
-        store = this.container.lookup('service:store');
+        store = this.owner.lookup('service:store');
         server = new Pretender();
     });
 
@@ -20,7 +18,7 @@ describe('Integration: Adapter: tag', function () {
     });
 
     it('loads tags from regular endpoint when all are fetched', function (done) {
-        server.get('/ghost/api/v2/admin/tags/', function () {
+        server.get('/ghost/api/v3/admin/tags/', function () {
             return [200, {'Content-Type': 'application/json'}, JSON.stringify({tags: [
                 {
                     id: 1,
@@ -42,7 +40,7 @@ describe('Integration: Adapter: tag', function () {
     });
 
     it('loads tag from slug endpoint when single tag is queried and slug is passed in', function (done) {
-        server.get('/ghost/api/v2/admin/tags/slug/tag-1/', function () {
+        server.get('/ghost/api/v3/admin/tags/slug/tag-1/', function () {
             return [200, {'Content-Type': 'application/json'}, JSON.stringify({tags: [
                 {
                     id: 1,

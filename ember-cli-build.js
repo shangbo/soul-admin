@@ -8,6 +8,7 @@ const uglify = require('broccoli-uglify-sourcemap');
 const Funnel = require('broccoli-funnel');
 const environment = EmberApp.env();
 const isProduction = environment === 'production';
+
 const postcssEasyImport = require('postcss-easy-import');
 const postcssCustomProperties = require('postcss-custom-properties');
 const postcssColorModFunction = require('postcss-color-mod-function');
@@ -24,13 +25,11 @@ const assetLocation = function (fileName) {
 
 const codemirrorAssets = function () {
     let codemirrorFiles = [
-        'theme/**/*',
         'lib/codemirror.js',
         'mode/htmlmixed/htmlmixed.js',
         'mode/xml/xml.js',
         'mode/css/css.js',
-        'mode/javascript/javascript.js',
-        'mode/python/python.js'
+        'mode/javascript/javascript.js'
     ];
 
     if (environment === 'test') {
@@ -50,18 +49,15 @@ const codemirrorAssets = function () {
                 sourceMapConfig: {enabled: false}
             });
 
-            let cssTree = concat(tree, {
-                outputFile: 'assets/codemirror/codemirror-style.css',
-                inputFiles: ['theme/**/*'],
-                sourceMapConfig: {enabled: false}
-            });
+            if (isProduction) {
+                jsTree = uglify(jsTree);
+            }
 
-            let mergedTree = mergeTrees([tree, jsTree, cssTree]);
-            let funnel = new Funnel(mergedTree, {include: ['assets/**/*']});
-            return funnel; 
+            let mergedTree = mergeTrees([tree, jsTree]);
+            return new Funnel(mergedTree, {include: ['assets/**/*', 'theme/**/*']});
         }
     };
- 
+
     // put the files in vendor ready for importing into the test-support file
     if (environment === 'development') {
         config.vendor = codemirrorFiles;
@@ -123,11 +119,6 @@ module.exports = function (defaults) {
         'ember-composable-helpers': {
             only: ['optional', 'toggle']
         },
-        // 'ember-prism': {
-        //     // theme: 'twilight',
-        //     components: ['scss', 'javascript'], //needs to be an array, or undefined.
-        //     plugins: ['line-highlight']
-        // },
         outputPaths: {
             app: {
                 html: isProduction ? 'index.min.html' : 'index.html',
@@ -209,6 +200,8 @@ module.exports = function (defaults) {
             ],
             optimizer: {
                 plugins: [
+                    {prefixIds: true},
+                    {cleanupIds: false},
                     {removeDimensions: true},
                     {removeTitle: true},
                     {removeXMLNS: true},
@@ -229,6 +222,8 @@ module.exports = function (defaults) {
     // 'dem Styles
     // import codemirror + simplemde styles rather than lazy-loading so that
     // our overrides work correctly
+    app.import('node_modules/codemirror/lib/codemirror.css');
+    app.import('node_modules/codemirror/theme/xq-light.css');
     app.import('node_modules/simplemde/dist/simplemde.min.css');
 
     // 'dem Scripts
@@ -236,17 +231,8 @@ module.exports = function (defaults) {
     app.import('node_modules/keymaster/keymaster.js');
     app.import('node_modules/@tryghost/mobiledoc-kit/dist/amd/mobiledoc-kit.js');
     app.import('node_modules/@tryghost/mobiledoc-kit/dist/amd/mobiledoc-kit.map');
-    app.import('node_modules/@loftysoul/soul-editor-kit/dist/amd/soul-editor-kit.js');
     app.import('node_modules/reframe.js/dist/noframe.js');
 
-    app.import('node_modules/highlight.js/lib/index.js', {
-        using: [
-            {transformation: 'cjs', as: 'highlight.js'}
-        ]
-    });
-    
-    app.import('node_modules/highlight.js/styles/monokai.css');
-    
     // pull things we rely on via lazy-loading into the test-support.js file so
     // that tests don't break when running via http://localhost:4200/tests
     if (app.env === 'development') {

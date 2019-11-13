@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import EmberObject from '@ember/object';
-import ghostPaths from 'ghost-admin/utils/ghost-paths';
+import ghostPaths from 'soul-admin/utils/ghost-paths';
 import {all, task} from 'ember-concurrency';
 import {get} from '@ember/object';
 import {isArray} from '@ember/array';
@@ -181,7 +181,7 @@ export default Component.extend({
 
         if (!extension || extensions.indexOf(extension.toLowerCase()) === -1) {
             let validExtensions = `.${extensions.join(', .').toUpperCase()}`;
-            return `The image type you uploaded is not supported. Please use ${validExtensions}`;
+            return `The file type you uploaded is not supported. Please use ${validExtensions}`;
         }
 
         return true;
@@ -197,7 +197,7 @@ export default Component.extend({
         // once we drop IE11 support we should be able to use native for...of
         for (let i = 0; i < files.length; i += 1) {
             let file = files[i];
-            let tracker = new UploadTracker({file});
+            let tracker = UploadTracker.create({file});
 
             this._uploadTrackers.pushObject(tracker);
             uploads.push(this._uploadFile.perform(tracker, file, i));
@@ -311,6 +311,10 @@ export default Component.extend({
     // - I think this was because updates were being wrapped up to save
     // computation but that hypothesis needs testing
     _updateProgress() {
+        if (this.isDestroyed || this.isDestroying) {
+            return;
+        }
+
         let trackers = this._uploadTrackers;
         let totalSize = trackers.reduce((total, tracker) => total + tracker.get('total'), 0);
         let uploadedSize = trackers.reduce((total, tracker) => total + tracker.get('loaded'), 0);
