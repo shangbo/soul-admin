@@ -1,0 +1,27 @@
+{{#gh-app showSettingsMenu=ui.showSettingsMenu}}
+    {{#gh-skip-link anchor=".gh-main"}}Skip to main content{{/gh-skip-link}}
+
+    {{gh-alerts}}
+
+    <div class="gh-viewport {{if ui.showSettingsMenu 'settings-menu-expanded'}} {{if ui.showMobileMenu 'mobile-menu-expanded'}}">
+        {{#if showNavMenu}}
+            {{gh-nav-menu
+                icon=settings.settledIcon
+            }}
+        {{/if}}
+
+        <main class="gh-main {{this.ui.mainClass}}" role="main">
+            {{outlet}}
+        </main>
+
+        {{gh-notifications}}
+
+        {{gh-content-cover}}
+
+        {{gh-mobile-nav-bar}}
+
+        <GhWhatsNew />
+    </div>{{!gh-viewport}}
+{{/gh-app}}
+
+{{ember-load-remover}}

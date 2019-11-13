@@ -1,0 +1,85 @@
+<section class="gh-canvas">
+    <GhCanvasHeader class="gh-canvas-header members-header">
+        <h2 class="gh-canvas-title" data-test-screen-title>Members</h2>
+        <section class="view-actions">
+            <span class="dropdown">
+                {{#gh-dropdown-button dropdownName="members-actions-menu" classNames="gh-btn gh-btn-white gh-btn-icon only-has-icon gh-actions-cog" title="Members Actions" data-test-user-actions=true}}
+                <span>
+                    {{svg-jar "settings"}}
+                    <span class="hidden">Members Actions</span>
+                </span>
+                {{/gh-dropdown-button}}
+                {{#gh-dropdown name="members-actions-menu" tagName="ul" classNames="gh-member-actions-menu dropdown-menu dropdown-triangle-top-right"}}
+                <li>
+                    {{#link-to "members.import" class="mr2" data-test-link="import-csv"}}
+                    <span>Import CSV </span>
+                    {{/link-to}}
+                </li>
+                <li>
+                    <a href="#" {{action 'exportData'}} class="mr2">
+                        <span>Export CSV </span>
+                    </a>
+                </li>
+                {{/gh-dropdown}}
+            </span>
+            <div class="relative gh-members-header-search">
+                {{svg-jar "search" class="gh-input-search-icon"}}
+                <GhTextInput placeholder="Search members..." @value={{this.searchText}} @input={{action (mut this.searchText) value="target.value"}} class="gh-members-list-searchfield {{if this.searchText "active"}}" />
+            </div>
+        </section>
+    </GhCanvasHeader>
+    <section class="view-container">
+        <section class="content-list">
+            <ol class="members-list gh-list {{unless filteredMembers "no-posts"}}">
+                {{#if filteredMembers}}
+                    <li class="gh-list-row header">
+                        <div class="gh-list-header">
+                            {{#if this.searchText}}
+                                Search result
+                            {{else}}
+                                {{#if this.fetchMembers.lastSuccessful}}
+                                    {{pluralize memberCount "member"}}
+                                {{else}}
+                                    Loading...
+                                {{/if}}
+                            {{/if}}
+                        </div>
+                        <div class="gh-list-header gh-list-cellwidth-20 nowrap">Created</div>
+                        <div class="gh-list-header gh-list-cellwidth-chevron"></div>
+                    </li>
+                    {{#vertical-collection
+                                items=filteredMembers
+                                key="id"
+                                containerSelector=".gh-main"
+                                estimateHeight=60
+                                bufferSize=20
+                                as |member|
+                            }}
+                    {{gh-members-list-item
+                                    member=member
+                                    data-test-member-id=member.id
+                                }}
+                    {{/vertical-collection}}
+                {{else}}
+                    {{#if this.fetchMembers.isRunning}}
+                        <div class="gh-content">
+                            <GhLoadingSpinner />
+                        </div>
+                    {{else}}
+                        <li class="no-posts-box">
+                            <div class="no-posts">
+                                {{svg-jar "members-placeholder" class="gh-members-placeholder"}}
+                                {{#if this.searchText}}
+                                    <h3>No members found!</h3>
+                                {{else}}
+                                    <h3>You don't have any members</h3>
+                                {{/if}}
+                            </div>
+                        </li>
+                    {{/if}}
+                {{/if}}
+            </ol>
+        </section>
+    </section>
+</section>
+{{outlet}}
