@@ -19,9 +19,8 @@ const CmEditorComponent = Component.extend({
     indentUnit: 4,
     lineNumbers: true,
     lineWrapping: false,
-    mode: 'htmlmixed',
-    theme: 'xq-light',
-
+    theme: 'material',
+    loader: null,
     _editor: null, // reference to CodeMirror editor
 
     // Allowed actions
@@ -31,18 +30,21 @@ const CmEditorComponent = Component.extend({
     _value: boundOneWay('value'), // make sure a value exists
 
     didReceiveAttrs() {
+        console.log('didReceiveAttrs');
         if (this._value === null || undefined) {
             this.set('_value', '');
         }
-
-        if (this.mode !== this._lastMode && this._editor) {
-            this._editor.setOption('mode', this.mode);
+        // if (this.mode !== this._lastMode && this._editor) {
+        if (this._editor) {
+            this.changeMode.perform();
         }
+        
         this._lastMode = this.mode;
     },
 
     didInsertElement() {
         this._super(...arguments);
+        console.log('didInsertElement');
         this.initCodeMirror.perform();
     },
 
@@ -52,11 +54,8 @@ const CmEditorComponent = Component.extend({
         // Ensure the editor exists before trying to destroy it. This fixes
         // an error that occurs if codemirror hasn't finished loading before
         // the component is destroyed.
-        if (this._editor) {
-            let editor = this._editor.getWrapperElement();
-            editor.parentNode.removeChild(editor);
-            this._editor = null;
-        }
+        console.log('willDestroyElement');
+        this._destroyEditor();
     },
 
     actions: {
@@ -66,21 +65,45 @@ const CmEditorComponent = Component.extend({
     },
 
     initCodeMirror: task(function* () {
-        let loader = this.lazyLoader;
-        yield loader.loadScript('codemirror', 'assets/codemirror/codemirror.js');
-
+        console.log('initCodeMirror');
+        this.loader = this.lazyLoader;
+        yield this.loader.loadScript('codemirror', 'assets/codemirror/codemirror.js');
+        yield this.loader.loadStyle('codemirror', 'assets/codemirror/codemirror-style.css');
+        if (this.mode){
+            console.log('uuu');
+            let modePath = 'assets/codemirror/mode/' + this.mode + '/' + this.mode + '.js';
+            yield this.loader.loadScript('codemirror-mode-' + this.mode, modePath, 'after');
+        }
         scheduleOnce('afterRender', this, this._initCodeMirror);
     }),
+
+    changeMode: task(function* (){
+        console.log('changeMode');
+        if (this.mode && this.mode !== this._lastMode){
+            console.log('xxxx');
+            this._destroyEditor();
+            let modePath = 'assets/codemirror/mode/' + this.mode + '/' + this.mode + '.js';
+            yield this.loader.loadScript('codemirror-mode-' + this.mode, modePath, 'after');
+            scheduleOnce('afterRender', this, this._initCodeMirror);
+        }
+    }),
+
+    _destroyEditor(){
+        if (this._editor) {
+            let editor = this._editor.getWrapperElement();
+            editor.parentNode.removeChild(editor);
+            this._editor = null;
+        }
+    },
 
     _initCodeMirror() {
         let options = this.getProperties('lineNumbers', 'lineWrapping', 'indentUnit', 'mode', 'theme', 'autofocus');
         assign(options, {value: this._value});
-
         let textarea = this.element.querySelector('textarea');
         if (textarea && textarea === document.activeElement) {
             options.autofocus = true;
         }
-
+        // textarea.value = this._value;
         this._editor = new CodeMirror.fromTextArea(textarea, options);
 
         // by default CodeMirror will place the cursor at the beginning of the
@@ -93,6 +116,8 @@ const CmEditorComponent = Component.extend({
         this._setupCodeMirrorEventHandler('focus', this, this._focus);
         this._setupCodeMirrorEventHandler('blur', this, this._blur);
         this._setupCodeMirrorEventHandler('change', this, this._update);
+
+        // this._editor.setOption('mode', this.mode);
     },
 
     _setupCodeMirrorEventHandler(event, target, method) {
@@ -117,6 +142,7 @@ const CmEditorComponent = Component.extend({
     _blur(/* codeMirror, event */) {
         this.set('isFocused', false);
     }
+   
 });
 
 CmEditorComponent.reopenClass({

@@ -25,12 +25,14 @@ const assetLocation = function (fileName) {
 
 const codemirrorAssets = function () {
     let codemirrorFiles = [
-        // 'theme/**/*',
+        'theme/**/*',
         'lib/codemirror.js',
-        'mode/htmlmixed/htmlmixed.js',
-        'mode/xml/xml.js',
-        'mode/css/css.js',
-        'mode/javascript/javascript.js'
+        'mode/**/*'
+        // 'mode/htmlmixed/htmlmixed.js',
+        // 'mode/xml/xml.js',
+        // 'mode/css/css.js',
+        // 'mode/javascript/javascript.js',
+        // 'mode/python/python.js'
     ];
 
     if (environment === 'test') {
@@ -46,7 +48,7 @@ const codemirrorAssets = function () {
             let jsTree = concat(tree, {
                 outputFile: 'assets/codemirror/codemirror.js',
                 headerFiles: ['lib/codemirror.js'],
-                inputFiles: ['mode/**/*'],
+                // inputFiles: ['mode/**/*'],
                 sourceMapConfig: {enabled: false}
             });
 
@@ -54,15 +56,18 @@ const codemirrorAssets = function () {
                 jsTree = uglify(jsTree);
             }
 
-            // let cssTree = concat(tree, {
-            //     outputFile: 'assets/codemirror/codemirror-style.css',
-            //     inputFiles: ['theme/**/*'],
-            //     sourceMapConfig: {enabled: false}
-            // });
+            let cssTree = concat(tree, {
+                outputFile: 'assets/codemirror/codemirror-style.css',
+                inputFiles: ['theme/**/*'],
+                sourceMapConfig: {enabled: false}
+            });
 
-            // let mergedTree = mergeTrees([tree, jsTree, cssTree]);
-            let mergedTree = mergeTrees([tree, jsTree])
-            return new Funnel(mergedTree, {include: ['assets/**/*', 'theme/**/*']});
+            let modeTree = new Funnel(tree, {srcDir: 'mode', destDir: 'assets/codemirror/mode'});
+
+            let mergedTree = mergeTrees([jsTree, cssTree, modeTree]);
+
+            // let mergedTree = mergeTrees([tree, jsTree])
+            return new Funnel(mergedTree, {include: ['assets/**/*']});
         }
     };
 

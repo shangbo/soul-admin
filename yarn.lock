@@ -950,10 +950,10 @@
     ember-compatibility-helpers "^1.2.0"
     ember-raf-scheduler "0.1.0"
 
-"@loftysoul/soul-editor-kit@0.11.10":
-  version "0.11.10"
-  resolved "https://registry.yarnpkg.com/@loftysoul/soul-editor-kit/-/soul-editor-kit-0.11.10.tgz#c6341aa83a6611e2b589d6136f4c8277f328de15"
-  integrity sha512-/Vr2KM4He1i2Z/msnd72yf7bnmAYrJsft4VbXKs4gGBSpwhjyfkaowOx61Ce0T2KHUH6fJr/qzyzK/R0tclwsg==
+"@loftysoul/soul-editor-kit@0.11.11":
+  version "0.11.11"
+  resolved "https://registry.yarnpkg.com/@loftysoul/soul-editor-kit/-/soul-editor-kit-0.11.11.tgz#6e7ba1c5bed8325799d9a2fa4bcc7ddc102bdb0f"
+  integrity sha512-XuzAXowGwJkhdXV35m1hpPexpBDW/YmI7agf96VFXaUDv+OJcrsgJGSz2LO/TSOQeoSkbYdyTtEAptUABmm3Jw==
   dependencies:
     mobiledoc-dom-renderer "0.6.5"
     mobiledoc-text-renderer "0.3.2"

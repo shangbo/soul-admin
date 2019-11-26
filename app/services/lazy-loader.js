@@ -20,15 +20,13 @@ export default Service.extend({
         }
     },
 
-    loadScript(key, url) {
+    loadScript(key, url, position = 'before') {
         if (this.testing) {
             return RSVP.resolve();
         }
-
         if (this.scriptPromises[key]) {
             return this.scriptPromises[key];
         }
-
         let scriptPromise = new RSVP.Promise((resolve, reject) => {
             let {adminRoot} = this.ghostPaths;
 
@@ -36,9 +34,22 @@ export default Service.extend({
             script.type = 'text/javascript';
             script.async = true;
             script.src = `${adminRoot}${url}`;
+            // console.log(script);
 
             let el = document.getElementsByTagName('script')[0];
-            el.parentNode.insertBefore(script, el);
+            if (position === 'before'){
+                el.parentNode.insertBefore(script, el);
+            }
+            if (position === 'after'){
+                let parent = el.parentNode;
+                if (parent.lastChild === el) {
+                    // 如果最后的节点是目标元素，则直接添加。因为默认是最后
+                    parent.appendChild(script);
+                } else {
+                    parent.insertBefore(script, el.nextSibling);
+                    //如果不是，则插入在目标元素的下一个兄弟节点 的前面。也就是目标元素的后面
+                }
+            }
 
             script.addEventListener('load', () => {
                 resolve();
