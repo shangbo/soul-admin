@@ -484,3 +484,8 @@ input:focus,
 .apps-grid-cell:hover {
     background: color-mod(var(--lightgrey) l(-9%));
 }
+
+.cardStyle {
+    background-color: var(--dark-main-bg-color); 
+    border-color: var(--dark-main-bg-color);
+}

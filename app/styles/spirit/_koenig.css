@@ -7,7 +7,8 @@
 /* Global Koenig content styles
 /* -------------------------------------------------------------------- */
 .koenig-editor__editor {
-    font-family: var(--font-family);
+    /* font-family: var(--font-family); */
+    font-family: 'Tahoma For Number', 'Chinese Quote', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 1.7rem;
     font-weight: 200;
     letter-spacing: 0.1px;
@@ -124,7 +125,7 @@
 .koenig-editor__editor ol + h4,
 .koenig-editor__editor ol + h5,
 .koenig-editor__editor ol + h6 {
-    margin: 4.8rem 0 0;
+    margin: 2.5rem 0 0;
 }
 
 /* Heading 1 vertical rhythm */
@@ -155,7 +156,7 @@
 /* Heading 2 */
 
 .koenig-editor__editor h1 + h2 {
-    margin: 1.6rem 0 0;
+    margin: 2.5rem 0 0;
 }
 
 .koenig-editor__editor h2 + h2,
@@ -265,8 +266,8 @@
  {
     font-family: georgia,serif;
     font-weight: 400;
-    line-height: 1.6em;
-    font-size: 2.0rem;
+    line-height: 1.5em;
+    font-size: 1.7rem;
 }
 
 .koenig-editor__editor h1 + p {
@@ -289,7 +290,8 @@
 .koenig-editor__editor ul + p,
 .koenig-editor__editor ol + p
  {
-    margin: 3.2rem 0 0;
+    /* margin: 3.2rem 0 0; */
+    margin: 1.0rem 0 0;
 }
 
 .koenig-editor__editor div + p { /* Mobiledoc cards can be addressed by their wrapper div element */
@@ -319,7 +321,7 @@
 }
 
 .koenig-editor__editor ul:not(.kg-action-bar):not(.kg-link-toolbar) li {
-    margin: 1.0rem 0 0 2.4rem;
+    margin: 0 0 0 2.4rem;
     padding: 0 0 0 0.6rem;
     line-height: 3.2rem;
 }
@@ -329,7 +331,7 @@
 }
 
 .koenig-editor__editor ol li {
-    margin: 1.0rem 0 0 2.2rem;
+    margin: 0.2rem 0 0 2.2rem;
     padding: 0 0 0 0.8rem;
     line-height: 3.2rem;
 }
@@ -349,7 +351,7 @@
 .koenig-editor__editor ol + ol,
 .koenig-editor__editor blockquote + ul:not(.kg-action-bar):not(.kg-link-toolbar),
 .koenig-editor__editor blockquote + ol {
-    margin: 3.0rem 0 0;
+    margin: 1.0rem 0 0;
 }
 
 .koenig-editor__editor h1 + ul:not(.kg-action-bar):not(.kg-link-toolbar),
@@ -371,7 +373,7 @@
 
 .koenig-editor__editor div + ul:not(.kg-action-bar):not(.kg-link-toolbar),
 .koenig-editor__editor div + ol {
-    margin: 2.8rem 0 0;
+    margin: 1.5rem 0 0;
 }
 
 .koenig-editor__editor ul:not(.kg-action-bar):not(.kg-link-toolbar) ul:not(.kg-action-bar):not(.kg-link-toolbar),
@@ -470,8 +472,9 @@
 .koenig-card-html--editor .CodeMirror,
 .koenig-editor__editor code,
 .koenig-editor__editor pre {
-    font-family: Consolas,Liberation Mono,Menlo,Courier,monospace;
+    /* font-family: Consolas,Liberation Mono,Menlo,Courier,monospace; */
     background: color-mod(var(--lightgrey) lightness(+4%));
+    /* background: var(--input-bg-color); */
     border: 1px solid var(--lightgrey);
 }
 
