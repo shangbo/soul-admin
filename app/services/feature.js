@@ -118,7 +118,6 @@ export default Service.extend({
 
     _setAdminTheme(enabled) {
         let nightShift = enabled;
-
         if (typeof nightShift === 'undefined') {
             nightShift = enabled || this.nightShift;
         }

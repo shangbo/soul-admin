@@ -19,7 +19,6 @@ const CmEditorComponent = Component.extend({
     indentUnit: 4,
     lineNumbers: true,
     lineWrapping: false,
-    theme: 'material',
     loader: null,
     _editor: null, // reference to CodeMirror editor
 

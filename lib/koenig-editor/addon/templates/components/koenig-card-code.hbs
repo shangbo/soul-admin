@@ -1,5 +1,6 @@
 {{#koenig-card
-    class=(concat "ba b--white relative kg-card-hover miw-100 relative" (if isEditing "cardStyle bw2 pt1 pb1 pl2 nl6 pr6 nr6"))
+    class=(concat "ba b--white relative kg-card-hover miw-100 relative" (if isEditing "bw2 pt1 pb1 pl2 nl6 pr6 nr6"))
+    style=cardStyle
     headerOffset=headerOffset
     toolbar=toolbar
     payload=payload
@@ -25,6 +26,7 @@
             lineWrapping=true
             update=(action "updateCode")
             mode=cmMode
+            theme=cmTheme
         }}
         <input
             type="text"
