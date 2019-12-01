@@ -69,7 +69,6 @@ const CmEditorComponent = Component.extend({
         yield this.loader.loadScript('codemirror', 'assets/codemirror/codemirror.js');
         yield this.loader.loadStyle('codemirror', 'assets/codemirror/codemirror-style.css');
         if (this.mode){
-            console.log('uuu');
             let modePath = 'assets/codemirror/mode/' + this.mode + '/' + this.mode + '.js';
             yield this.loader.loadScript('codemirror-mode-' + this.mode, modePath, 'after');
         }
@@ -79,7 +78,6 @@ const CmEditorComponent = Component.extend({
     changeMode: task(function* (){
         console.log('changeMode');
         if (this.mode && this.mode !== this._lastMode){
-            console.log('xxxx');
             this._destroyEditor();
             let modePath = 'assets/codemirror/mode/' + this.mode + '/' + this.mode + '.js';
             yield this.loader.loadScript('codemirror-mode-' + this.mode, modePath, 'after');

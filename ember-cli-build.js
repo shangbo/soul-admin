@@ -236,7 +236,6 @@ module.exports = function (defaults) {
     // import codemirror + simplemde styles rather than lazy-loading so that
     // our overrides work correctly
     app.import('node_modules/codemirror/lib/codemirror.css');
-    app.import('node_modules/codemirror/theme/xq-light.css');
     app.import('node_modules/simplemde/dist/simplemde.min.css');
 
     // 'dem Scripts
@@ -247,13 +246,12 @@ module.exports = function (defaults) {
     app.import('node_modules/@loftysoul/soul-editor-kit/dist/amd/soul-editor-kit.js');
     app.import('node_modules/reframe.js/dist/noframe.js');
 
-    // app.import('node_modules/highlight.js/lib/index.js', {
-    //     using: [
-    //         {transformation: 'cjs', as: 'highlight.js'}
-    //     ]
-    // });
-
-    // app.import('node_modules/highlight.js/styles/monokai.css');
+    app.import('node_modules/highlight.js/lib/index.js', {
+        using: [
+            {transformation: 'cjs', as: 'highlight.js'}
+        ]
+    });
+    app.import('node_modules/highlight.js/styles/monokai.css');
 
     // pull things we rely on via lazy-loading into the test-support.js file so
     // that tests don't break when running via http://localhost:4200/tests
