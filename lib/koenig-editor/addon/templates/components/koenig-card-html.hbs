@@ -19,6 +19,8 @@
             autofocus=true
             lineWrapping=true
             update=(action "updateHtml")
+            theme=cmTheme
+            mode=cmMode
         }}
     {{else}}
         <div class="koenig-card-html-rendered">{{{sanitize-html payload.html}}}</div>

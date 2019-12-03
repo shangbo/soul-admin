@@ -345,3 +345,12 @@ button, .btn-base {
 .bg-grouped-table {
     background: var(--white);
 }
+
+.language-absolute {
+    top: 4px;
+    right: 15px;
+}
+
+.language-opacity {
+    opacity: 0;
+}

@@ -34,7 +34,6 @@ export default Service.extend({
             script.type = 'text/javascript';
             script.async = true;
             script.src = `${adminRoot}${url}`;
-            // console.log(script);
 
             let el = document.getElementsByTagName('script')[0];
             if (position === 'before'){

@@ -18,6 +18,7 @@ const CmEditorComponent = Component.extend({
     autofocus: false,
     indentUnit: 4,
     lineNumbers: true,
+    smartIndent: true,
     lineWrapping: false,
     loader: null,
     _editor: null, // reference to CodeMirror editor
@@ -29,7 +30,6 @@ const CmEditorComponent = Component.extend({
     _value: boundOneWay('value'), // make sure a value exists
 
     didReceiveAttrs() {
-        console.log('didReceiveAttrs');
         if (this._value === null || undefined) {
             this.set('_value', '');
         }
@@ -37,13 +37,11 @@ const CmEditorComponent = Component.extend({
         if (this._editor) {
             this.changeMode.perform();
         }
-        
         this._lastMode = this.mode;
     },
 
     didInsertElement() {
         this._super(...arguments);
-        console.log('didInsertElement');
         this.initCodeMirror.perform();
     },
 
@@ -53,8 +51,11 @@ const CmEditorComponent = Component.extend({
         // Ensure the editor exists before trying to destroy it. This fixes
         // an error that occurs if codemirror hasn't finished loading before
         // the component is destroyed.
-        console.log('willDestroyElement');
-        this._destroyEditor();
+        if (this._editor) {
+            let editor = this._editor.getWrapperElement();
+            editor.parentNode.removeChild(editor);
+            this._editor = null;
+        }
     },
 
     actions: {
@@ -64,7 +65,6 @@ const CmEditorComponent = Component.extend({
     },
 
     initCodeMirror: task(function* () {
-        console.log('initCodeMirror');
         this.loader = this.lazyLoader;
         yield this.loader.loadScript('codemirror', 'assets/codemirror/codemirror.js');
         yield this.loader.loadStyle('codemirror', 'assets/codemirror/codemirror-style.css');
@@ -76,25 +76,22 @@ const CmEditorComponent = Component.extend({
     }),
 
     changeMode: task(function* (){
-        console.log('changeMode');
         if (this.mode && this.mode !== this._lastMode){
-            this._destroyEditor();
+            // this._destroyEditor();
             let modePath = 'assets/codemirror/mode/' + this.mode + '/' + this.mode + '.js';
             yield this.loader.loadScript('codemirror-mode-' + this.mode, modePath, 'after');
-            scheduleOnce('afterRender', this, this._initCodeMirror);
+            scheduleOnce('afterRender', this, this._changeMode);
         }
     }),
 
-    _destroyEditor(){
-        if (this._editor) {
-            let editor = this._editor.getWrapperElement();
-            editor.parentNode.removeChild(editor);
-            this._editor = null;
+    _changeMode(){
+        if (this._editor){
+            this._editor.setOption('mode',this.mode);
         }
     },
 
     _initCodeMirror() {
-        let options = this.getProperties('lineNumbers', 'lineWrapping', 'indentUnit', 'mode', 'theme', 'autofocus');
+        let options = this.getProperties('lineNumbers', 'lineWrapping', 'indentUnit', 'mode', 'theme', 'autofocus','smartIndent');
         assign(options, {value: this._value});
         let textarea = this.element.querySelector('textarea');
         if (textarea && textarea === document.activeElement) {

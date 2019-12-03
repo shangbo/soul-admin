@@ -1,5 +1,5 @@
 {{#koenig-card
-    class=(concat "ba b--white relative kg-card-hover miw-100 relative" (if isEditing "bw2 pt1 pb1 pl2 nl6 pr6 nr6"))
+    class=(concat "ba b--white relative kg-card-hover miw-100 relative" (if isEditing "bw2 pt0 pb1 pl2 nl6 pr2 nr6"))
     style=cardStyle
     headerOffset=headerOffset
     toolbar=toolbar
@@ -28,14 +28,20 @@
             mode=cmMode
             theme=cmTheme
         }}
-        <input
+        {{gh-language-select
+            selectedLanguage=payload.language
+            languageClass=languageInputStyleClass
+            languagesMap=modeMap
+            update=(action "updateLanguage")
+        }}
+        {{!-- <input
             type="text"
             value={{readonly payload.language}}
             onblur={{action (mut payload.language) value="target.value"}}
             placeholder="Language..."
             class="absolute w-20 pa1 ba b--lightgrey br2 f8 tracked-2 fw4 z-999 outline-0 anim-normal"
             style={{languageInputStyle}}
-        />
+        /> --}}
     {{else}}
         <div class="koenig-card-html-rendered">
             <pre><code class="line-numbers {{if payload.language (concat "language-" payload.language)}}">{{escapedCode}}</code></pre>

@@ -1,0 +1,10 @@
+<span class="gh-select" data-select-text="{{selectedLanguage}}" tabindex="0" >
+    {{one-way-select
+        includeBlank=true
+        prompt="language..."
+        options=avaliableLanguages
+        value=selectedLanguage
+        update=(action "updateLanguage")
+    }}
+    {{svg-jar "arrow-down-small"}}
+</span>
