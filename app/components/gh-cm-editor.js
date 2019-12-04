@@ -3,6 +3,7 @@ import Component from '@ember/component';
 import boundOneWay from 'soul-admin/utils/bound-one-way';
 import {assign} from '@ember/polyfills';
 import {bind, once, scheduleOnce} from '@ember/runloop';
+import {computed} from '@ember/object';
 import {inject as service} from '@ember/service';
 import {task} from 'ember-concurrency';
 
@@ -27,7 +28,33 @@ const CmEditorComponent = Component.extend({
     'focus-in': () => {},
     update: () => {},
 
-    _value: boundOneWay('value'), // make sure a value exists
+    _value: boundOneWay('value'), 
+    assetLocation: computed('', function () {
+        return {
+            python: 'assets/codemirror/mode/python/python.js',
+            clike: 'assets/codemirror/mode/clike/clike.js',
+            cmake: 'assets/codemirror/mode/cmake/cmake.js',
+            css: 'assets/codemirror/mode/css/css.js',
+            coffeescript: 'assets/codemirror/mode/coffeescript/coffeescript.js',
+            go: 'assets/codemirror/mode/go/go.js',
+            groovy: 'assets/codemirror/mode/groovy/groovy.js',
+            xml: 'assets/codemirror/mode/xml/xml.js',
+            http: 'assets/codemirror/mode/http/http.js',
+            javascript: 'assets/codemirror/mode/javascript/javascript.js',
+            lua: 'assets/codemirror/mode/lua/lua.js',
+            markdown: 'assets/codemirror/mode/markdown/markdown.js',
+            nginx: 'assets/codemirror/mode/nginx/nginx.js',
+            perl: 'assets/codemirror/mode/perl/perl.js',
+            php: 'assets/codemirror/mode/php/php.js',
+            ruby: 'assets/codemirror/mode/ruby/ruby.js',
+            shell: 'assets/codemirror/mode/shell/shell.js',
+            sql: 'assets/codemirror/mode/sql/sql.js',
+            vue: 'assets/codemirror/mode/vue/vue.js',
+            hbs: 'assets/codemirror/mode/hbs/hbs.js'
+        };
+    }),
+
+    // make sure a value exists
 
     didReceiveAttrs() {
         if (this._value === null || undefined) {
@@ -66,10 +93,12 @@ const CmEditorComponent = Component.extend({
 
     initCodeMirror: task(function* () {
         this.loader = this.lazyLoader;
-        yield this.loader.loadScript('codemirror', 'assets/codemirror/codemirror.js');
-        yield this.loader.loadStyle('codemirror', 'assets/codemirror/codemirror-style.css');
+        let jsPath = 'assets/codemirror/codemirror.js';
+        let cssPath = 'assets/codemirror/codemirror-style.css';
+        yield this.loader.loadScript('codemirror', jsPath);
+        yield this.loader.loadStyle('codemirror', cssPath);
         if (this.mode){
-            let modePath = 'assets/codemirror/mode/' + this.mode + '/' + this.mode + '.js';
+            let modePath = this.assetLocation[this.mode];
             yield this.loader.loadScript('codemirror-mode-' + this.mode, modePath, 'after');
         }
         scheduleOnce('afterRender', this, this._initCodeMirror);
@@ -78,7 +107,7 @@ const CmEditorComponent = Component.extend({
     changeMode: task(function* (){
         if (this.mode && this.mode !== this._lastMode){
             // this._destroyEditor();
-            let modePath = 'assets/codemirror/mode/' + this.mode + '/' + this.mode + '.js';
+            let modePath = this.assetLocation[this.mode];
             yield this.loader.loadScript('codemirror-mode-' + this.mode, modePath, 'after');
             scheduleOnce('afterRender', this, this._changeMode);
         }

@@ -21,15 +21,20 @@ export default Service.extend({
     },
 
     loadScript(key, url, position = 'before') {
+        console.log(url);
+        console.log(key);
         if (this.testing) {
+            console.log(1);
             return RSVP.resolve();
         }
         if (this.scriptPromises[key]) {
+            console.log(2);
             return this.scriptPromises[key];
         }
         let scriptPromise = new RSVP.Promise((resolve, reject) => {
             let {adminRoot} = this.ghostPaths;
-
+            console.log(3);
+            console.log(adminRoot);
             let script = document.createElement('script');
             script.type = 'text/javascript';
             script.async = true;
