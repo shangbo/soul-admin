@@ -22,6 +22,8 @@ const CmEditorComponent = Component.extend({
     smartIndent: true,
     lineWrapping: false,
     loader: null,
+    mode: 'htmlmixed',
+    theme: 'xq-light',
     _editor: null, // reference to CodeMirror editor
 
     // Allowed actions
