@@ -159,8 +159,8 @@ body {
 }
 
 ::selection {
-    /* background: color-mod(var(--blue) lightness(+20%)); */
-    background: var(--input-bg-color);
+    background: color-mod(var(--blue) lightness(+20%));
+    /* background: var(--input-bg-color); */
 }
 
 

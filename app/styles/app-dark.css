@@ -281,7 +281,8 @@ input:focus,
 }
 
 .gh-main > section.gh-editor-fullscreen {
-    background: color-mod(#212A2E l(+2%));
+    background: color-mod(rgb(66, 79, 85) l(+2%));
+    /* background-color: lemonchiffon; */
 }
 
 .dropdown-menu {
