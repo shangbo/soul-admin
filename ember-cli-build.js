@@ -247,7 +247,7 @@ module.exports = function (defaults) {
             {transformation: 'cjs', as: 'highlight.js'}
         ]
     });
-    app.import('node_modules/highlight.js/styles/github-gist.css');
+    app.import('node_modules/highlight.js/styles/monokai-sublime.css');
 
     // pull things we rely on via lazy-loading into the test-support.js file so
     // that tests don't break when running via http://localhost:4200/tests

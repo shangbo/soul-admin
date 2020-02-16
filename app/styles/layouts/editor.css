@@ -520,7 +520,7 @@
 
 .gh-editor .gh-editor-title,
 .gh-markdown-editor .CodeMirror-wrap {
-    max-width: 740px;
+    max-width: 1000px;
     margin-right: auto;
     margin-left: auto;
     border: none;
