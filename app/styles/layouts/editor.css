@@ -115,7 +115,7 @@
 
 /* Google SERP Preview */
 .seo-preview {
-    font-family: Arial, sans-serif;
+    font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
     background: #fff;
     border: 1px solid var(--whitegrey);
     padding: 10px 12px;
@@ -170,7 +170,7 @@
     max-height: 110px;
     overflow: hidden;
     margin-bottom: 5px;
-    font-family: Georgia, serif;
+    font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
     font-size: 18px;
     line-height: 22px;
     font-weight: 500;
@@ -219,7 +219,7 @@
     border-style: solid;
     border-color: #e1e8ed;
     color: #292f33;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
     font-size: 1.4rem;
     line-height: 1.3em;
     background: #fff;
@@ -538,7 +538,7 @@
 .gh-markdown-editor .CodeMirror pre {
     padding: 0;
     color: color-mod(var(--darkgrey) l(+5%));
-    font-family: "Consolas", monaco, monospace;
+    font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
     font-size: 1.6rem;
 }
 
@@ -566,7 +566,7 @@
 .gh-editor .editor-preview,
 .gh-markdown-editor-preview {
     color: color-mod(var(--darkgrey) l(+5%));
-    font-family: Georgia, Times, Serif;
+    font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
     font-size: 1.9rem;
 }
 
@@ -582,7 +582,7 @@
 .gh-markdown-editor-preview h5,
 .gh-editor .editor-preview h6,
 .gh-markdown-editor-preview h6 {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
 }
 
 .gh-markdown-editor-preview-title {

@@ -1,6 +1,6 @@
 {
   "name": "soul-admin",
-  "version": "3.0.8-soul",
+  "version": "3.0.9-soul",
   "description": "Ember.js admin client for soul, based on ghost-admin",
   "author": "Ghost Foundation,Shawn",
   "homepage": "http://ghost.org",
