@@ -128,7 +128,7 @@
     "walk-sync": "2.0.2",
     "@loftysoul/soul-editor-kit": "0.11.11",
     "ember-cli-cjs-transform": "2.0.0",
-    "highlight.js": "^9.15.6"
+    "highlight.js": "^10.1.2"
   },
   "ember-addon": {
     "paths": [
